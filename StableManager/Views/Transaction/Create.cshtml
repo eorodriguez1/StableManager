@@ -1,0 +1,84 @@
+﻿@model StableManager.Models.Transaction
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="TransactionNumber" class="control-label"></label>
+                    <input asp-for="TransactionNumber" class="form-control" />
+                    <span asp-validation-for="TransactionNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="TransactionMadeOn" class="control-label"></label>
+                    <input asp-for="TransactionMadeOn" class="form-control" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="TransactionTypeID" class="control-label"></label>
+                    <select asp-for="TransactionTypeID" class="form-control" asp-items="ViewBag.TransactionTypeID"></select>
+                    <span asp-validation-for="TransactionTypeID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="UserChargedID" class="control-label"></label>
+                    <select asp-for="UserChargedID" class="form-control" asp-items="ViewBag.UserChargedID"></select>
+                    <span asp-validation-for="UserChargedID" class="text-danger"></span>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="TransactionValue" class="control-label"></label>
+                    <input asp-for="TransactionValue" class="form-control" />
+                    <span asp-validation-for="TransactionValue" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="TransactionAdditionalDescription" class="control-label"></label>
+                    <input asp-for="TransactionAdditionalDescription" class="form-control" />
+                    <span asp-validation-for="TransactionAdditionalDescription" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a class="btn btn-default" asp-action="Index">Back</a>
+        </div>
+
+
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageTransactions").className = "active";
+</script>

@@ -1,0 +1,59 @@
+﻿@model StableManager.Models.TransactionType
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<div>
+    <hr />
+    <input type="hidden" asp-for="TransactionTypeID" />
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label asp-for="TransactionTypeName" class="control-label"></label>
+                <input disabled="" asp-for="TransactionTypeName" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label asp-for="TransactionDescription" class="control-label"></label>
+                <input disabled="" asp-for="TransactionDescription" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <select disabled="" asp-for="Type" class="form-control" asp-items="ViewBag.Types"></select>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.TransactionTypeID">Edit</a>
+        <a class="btn btn-default" asp-action="Index">Back</a>
+    </div>
+
+
+    <div class="row">
+        <div class="container-fluid pull-right section-modifiedby">
+            <strong>@Html.DisplayNameFor(model => model.ModifiedOn) : </strong>
+            @Html.DisplayFor(model => model.ModifiedOn)
+            <br />
+            <strong>@Html.DisplayNameFor(model => model.ModifierUserID) : </strong>
+            @Html.DisplayFor(model => model.ModifierUserID)
+        </div>
+    </div>
+
+</div>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageTransactionTypes").className = "active";
+</script>

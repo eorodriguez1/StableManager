@@ -1,0 +1,62 @@
+﻿@model IEnumerable<StableManager.Models.Boarding>
+
+@{
+    ViewData["Title"] = "Boardings";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BillToUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Animal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BoardingType)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.StartedBoard)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndedBoard)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.BillToUser.FullName)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.Animal.AnimalName)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.BoardingType.BoardingTypeName)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.StartedBoard)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.EndedBoard)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageBoardings").className = "active";
+</script>
+
+

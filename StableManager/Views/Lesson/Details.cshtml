@@ -1,0 +1,48 @@
+﻿@model StableManager.Models.Lesson
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lesson</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LessonNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LessonNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LessonTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LessonTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LessonLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LessonLength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LessonDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LessonDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LessonCost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LessonCost)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.LessonID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

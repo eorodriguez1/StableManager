@@ -1,0 +1,124 @@
+﻿@model StableManager.Models.Animal
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="AnimalID" />
+        <input type="hidden" asp-for="AnimalNumber" />
+        <hr />
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="IsActive" class="control-label"></label>
+                    <input asp-for="IsActive" class="checkbox" />
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="AnimalName" class="control-label"></label>
+                    <input asp-for="AnimalName" class="form-control" />
+                    <span asp-validation-for="AnimalName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="AnimalOwnerID" class="control-label"></label>
+                    <select asp-for="AnimalOwnerID" class="form-control" asp-items="ViewBag.OwnerID"></select>
+                    <span asp-validation-for="AnimalOwnerID" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="Gender" class="control-label"></label>
+                    <input asp-for="Gender" class="form-control" />
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="Age" class="control-label"></label>
+                    <input asp-for="Age" class="form-control" />
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="AnimalType" class="control-label"></label>
+                    <input asp-for="AnimalType" class="form-control" />
+                    <span asp-validation-for="AnimalType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="Breed" class="control-label"></label>
+                    <input asp-for="Breed" class="form-control" />
+                    <span asp-validation-for="Breed" class="text-danger"></span>
+
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="SpecialDiet" class="control-label"></label>
+                    <input asp-for="SpecialDiet" class="checkbox" />
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-10">
+                <div class="form-group">
+                    <label asp-for="DietDetails" class="control-label"></label>
+                    <textarea asp-for="DietDetails" class="form-control"></textarea>
+                    <span asp-validation-for="DietDetails" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="HealthConcerns" class="control-label"></label>
+                    <textarea asp-for="HealthConcerns" class="form-control"></textarea>
+                    <span asp-validation-for="HealthConcerns" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-primary" />
+            <a class="btn btn-default" asp-action="Index">Back</a>
+        </div>
+
+        <div class="row">
+            <div class="container-fluid pull-right section-modifiedby">
+                <strong>@Html.DisplayNameFor(model => model.ModifiedOn) : </strong>
+                @Html.DisplayFor(model => model.ModifiedOn)
+                <br />
+                <strong>@Html.DisplayNameFor(model => model.ModifierUserID) : </strong>
+                @Html.DisplayFor(model => model.ModifierUserID)
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageAnimals").className = "active";
+</script>

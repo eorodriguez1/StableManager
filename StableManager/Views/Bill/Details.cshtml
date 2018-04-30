@@ -1,0 +1,106 @@
+﻿@model StableManager.Models.Bill
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCreatedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillCreatedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillDueOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillDueOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNetTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillNetTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTaxTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillTaxTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCurrentAmountDue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillCurrentAmountDue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillPastDueAmountDue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillPastDueAmountDue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTotalAmountDue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillTotalAmountDue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCreatorID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillCreatorID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifierUserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifierUserID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BillID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageBills").className = "active";
+</script>

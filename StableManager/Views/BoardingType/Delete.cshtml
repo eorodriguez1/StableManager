@@ -1,0 +1,57 @@
+﻿@model StableManager.Models.BoardingType
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>BoardingType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardingTypeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BoardingTypeName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardingTypeNameShort)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BoardingTypeNameShort)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardingTypeDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BoardingTypeDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BoardingPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BoardingPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDefined1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserDefined1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserDefined2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserDefined2)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="BoardingTypeID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

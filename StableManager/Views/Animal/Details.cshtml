@@ -1,0 +1,108 @@
+﻿@model StableManager.Models.Animal
+
+@{
+    ViewData["Title"] = "Animal Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <input type="hidden" asp-for="AnimalID" />
+    <input type="hidden" asp-for="AnimalNumber" />
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label"></label>
+                <input disabled="" asp-for="IsActive" class="checkbox" />
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label asp-for="AnimalName" class="control-label"></label>
+                <input disabled="" asp-for="AnimalName" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="form-group">
+                <label asp-for="AnimalOwnerID" class="control-label"></label>
+                <select disabled="" asp-for="AnimalOwnerID" class="form-control" asp-items="ViewBag.OwnerID"></select>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input disabled="" asp-for="Gender" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input disabled="" asp-for="Age" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group">
+                <label asp-for="AnimalType" class="control-label"></label>
+                <input disabled="" asp-for="AnimalType" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group">
+                <label asp-for="Breed" class="control-label"></label>
+                <input disabled="" asp-for="Breed" class="form-control" />
+
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group">
+                <label asp-for="SpecialDiet" class="control-label"></label>
+                <input disabled="" asp-for="SpecialDiet" class="checkbox" />
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="form-group">
+                <label asp-for="DietDetails" class="control-label"></label>
+                <textarea disabled="" asp-for="DietDetails" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+            <div class="form-group">
+                <label asp-for="HealthConcerns" class="control-label"></label>
+                <textarea disabled="" asp-for="HealthConcerns" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.AnimalID">Edit</a>
+        <a class="btn btn-default" asp-action="Index">Back</a>
+    </div>
+
+
+    <div class="row">
+        <div class="container-fluid pull-right section-modifiedby">
+            <strong>@Html.DisplayNameFor(model => model.ModifiedOn) : </strong>
+            @Html.DisplayFor(model => model.ModifiedOn)
+            <br />
+            <strong>@Html.DisplayNameFor(model => model.ModifierUserID) : </strong>
+            @Html.DisplayFor(model => model.ModifierUserID)
+        </div>
+    </div>
+
+</div>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageAnimals").className = "active";
+</script>

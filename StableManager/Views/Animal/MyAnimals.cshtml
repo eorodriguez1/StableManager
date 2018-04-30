@@ -1,0 +1,82 @@
+﻿@model IEnumerable<StableManager.Models.AnimalViewModels.MyAnimalsViewModel>
+
+@{
+    ViewData["Title"] = "My Animals";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewBag.Title</h3>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-body panel-myanimal">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => modelItem.AnimalName):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.AnimalName)
+                </div>
+                <img src="~/media/Icons/Generic-Horse.jpg" style="width:100px" />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => modelItem.Breed):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.Breed)
+                </div>
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => modelItem.Gender):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </div>
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => modelItem.UpdatesToDate):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.UpdatesToDate)
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-4 col-sm-4 col-xs-4">
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => modelItem.DietDetails):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.DietDetails)
+                </div>
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => item.HealthConcerns):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.HealthConcerns)
+                </div>
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => modelItem.LatestUpdate):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.LatestUpdate)
+                </div>
+                <div class="row col-lg-12">
+                    <strong>@Html.DisplayNameFor(modelItem => modelItem.UpdatedOccuredOn):</strong>
+                </div>
+                <div class="row col-lg-12">
+                    @Html.DisplayFor(modelItem => item.UpdatedOccuredOn)
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 animal-button">
+                <a class="btn btn-primary" asp-action="MyAnimalDetails" asp-route-id="@item.AnimalID">View Full Details</a>
+            </div>
+        </div>
+
+
+    </div>
+}
+
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("MyHorses").className = "active";
+</script>

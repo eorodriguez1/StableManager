@@ -1,0 +1,87 @@
+﻿@model StableManager.Models.Animal
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Animal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnimalNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnimalName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Breed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Breed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnimalType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HealthConcerns)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HealthConcerns)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecialDiet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SpecialDiet)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DietDetails)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DietDetails)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifierUserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifierUserID)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AnimalID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,86 @@
+﻿@model StableManager.Models.Boarding
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+<div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="BoardingID" />
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="AnimalID" class="control-label"></label>
+                    <select asp-for="AnimalID" class="form-control" asp-items="ViewBag.AnimalID"></select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BillToUserID" class="control-label"></label>
+                    <select asp-for="BillToUserID" class="form-control" asp-items="ViewBag.BillToUserID"></select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BoardingTypeID" class="control-label"></label>
+                    <select asp-for="BoardingTypeID" class="form-control" asp-items="ViewBag.BoardingTypeID"></select>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h4>Boarding dates for billing</h4>
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="StartedBoard" class="control-label"></label>
+                    <input asp-for="StartedBoard" class="form-control" />
+                    <span asp-validation-for="StartedBoard" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="EndedBoard" class="control-label"></label> (Leave blank if ongoing)
+                    <input asp-for="EndedBoard" class="form-control" />
+                    <span asp-validation-for="EndedBoard" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container-fluid action-buttons">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a class="btn btn-default" asp-action="Index">Back</a>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="container-fluid pull-right section-modifiedby">
+                <strong>@Html.DisplayNameFor(model => model.ModifiedOn) : </strong>
+                @Html.DisplayFor(model => model.ModifiedOn)
+                <br />
+                <strong>@Html.DisplayNameFor(model => model.ModifierUserID) : </strong>
+                @Html.DisplayFor(model => model.ModifierUserID)
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageBoardings").className = "active";
+</script>
+
+

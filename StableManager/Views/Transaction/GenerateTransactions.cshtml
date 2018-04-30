@@ -1,0 +1,58 @@
+﻿@model StableManager.Models.TransactionViewModels.GenerateTransactionsViewModel
+
+@{
+    ViewData["Title"] = "Generate Transactions";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div>
+    <form asp-action="GenerateTransactions">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BilledToID" class="control-label"></label>
+                    <select asp-for="BilledToID" class="form-control" asp-items="ViewBag.BilledToID"></select>
+                    <span asp-validation-for="BilledToID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BillFrom" class="control-label"></label>
+                    <input asp-for="BillFrom" class="form-control" />
+                    <span asp-validation-for="BillFrom" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BillTo" class="control-label"></label>
+                    <input asp-for="BillTo" class="form-control" />
+                    <span asp-validation-for="BillTo" class="text-danger"></span>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Generate" class="btn btn-primary" />
+            <a class="btn btn-default" asp-action="Index">Back</a>
+        </div>
+
+
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageTransactions").className = "active";
+</script>

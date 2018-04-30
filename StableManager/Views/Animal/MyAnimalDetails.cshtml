@@ -1,0 +1,168 @@
+﻿@model StableManager.Models.AnimalViewModels.MyAnimalDetailsViewModel
+
+@{
+    ViewData["Title"] = "My Animal Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewBag.Title</h3>
+
+<div>
+    <hr />
+    <h4>General Information</h4>
+
+    <input type="hidden" asp-for="AnimalID" />
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+            <img src="~/media/Icons/Generic-Horse.jpg" style="width:200px" />
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-4 col-xs-12">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="AnimalName" class="control-label"></label>
+                        <input disabled="" asp-for="AnimalName" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Gender" class="control-label"></label>
+                        <input disabled="" asp-for="Gender" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-1 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="DOB" class="control-label"></label>
+                        <input disabled="" asp-for="DOB" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label">Age</label>
+                        <text disabled="" class="form-control">11</text>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-2 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="Breed" class="control-label"></label>
+                        <input disabled="" asp-for="Breed" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="BoardingTypeName" class="control-label"></label>
+                        <input disabled="" asp-for="BoardingTypeName" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-2 col-xs-12">
+                    <div class="form-group">
+                        <label asp-for="BoardingTypeDescription" class="control-label"></label>
+                        <input disabled="" asp-for="BoardingTypeDescription" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h4>Health Concerns</h4>
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div class="form-group">
+                <label asp-for="SpecialDiet" class="control-label"></label>
+                <input disabled="" asp-for="SpecialDiet" class="checkbox" />
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            <div class="form-group">
+                <label asp-for="DietDetails" class="control-label"></label>
+                <textarea disabled="" asp-for="DietDetails" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+            <div class="form-group">
+                <label asp-for="HealthConcerns" class="control-label"></label>
+                <textarea disabled="" asp-for="HealthConcerns" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h4>Updates</h4>
+
+    <div class="row">
+
+        <div class="col-lg-8 col-md-8 col-sm-11">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Occured On
+                        </th>
+                        <th>
+                            By
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AnimalUpdates)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateOccured)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserBy)
+                            </td>
+                            <td>
+                                <a asp-action="Update" asp-controller="AnimalHealthUpdate" asp-route-id="@item.AnimalHealthUpdatesID">Edit</a> |
+                                <a asp-action="DeleteUpdate" asp-controller="AnimalHealthUpdate" asp-route-id="@item.AnimalHealthUpdatesID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <a class="btn btn-primary animal-button" asp-controller="AnimalHealthUpdate" asp-action="NewUpdate" asp-route-id="@Model.AnimalID">Add New Update</a>
+        </div>
+
+    </div>
+    <hr />
+    <div class="form-group">
+        <a class="btn btn-primary" asp-action="EditMyAnimal" asp-route-id="@Model.AnimalID">Edit</a>
+        <a class="btn btn-default" asp-action="MyAnimals">Back</a>
+    </div>
+
+
+    <div class="row">
+        <div class="container-fluid pull-right section-modifiedby">
+            <strong>@Html.DisplayNameFor(model => model.ModifiedOn) : </strong>
+            @Html.DisplayFor(model => model.ModifiedOn)
+            <br />
+            <strong>@Html.DisplayNameFor(model => model.ModifierUserID) : </strong>
+            @Html.DisplayFor(model => model.ModifierUserID)
+        </div>
+    </div>
+
+</div>
+
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("MyHorses").className = "active";
+</script>

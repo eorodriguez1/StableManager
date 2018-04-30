@@ -1,6 +1,9 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 45px;
     padding-bottom: 20px;
+    background-image: url("../media/Backgrounds/1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* Wrapping element */
@@ -33,3 +36,62 @@
         display: none;
     }
 }
+
+.panel-main {
+    margin-top: 15px;
+    min-width: 1000px;
+}
+
+.panel-side {
+    margin-top: 15px;
+}
+
+.section-modifiedby {
+    padding-top: 15px;
+}
+
+.form-control {
+    margin-bottom: 10px;
+}
+
+.user-rights {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.action-buttons {
+    margin-top: 30px;
+}
+
+.Header-SideMenu {
+    padding: 10px;
+    border-style: solid;
+    border-color: black;
+    border-bottom: hidden;
+    border-width: 1px;
+    font-weight: 500;
+    color: white;
+}
+
+.SideMenu-SubItem {
+    padding-left: 45px;
+    background-color: #3A3F44;
+}
+
+.Negative-Value a {
+    color: red;
+}
+
+.panel-heading {
+    color: white;
+}
+
+.panel-myanimal {
+    background-color: #F8F5F0;
+}
+
+
+.animal-button {
+        margin-top:auto;
+        margin-bottom:auto;
+    }

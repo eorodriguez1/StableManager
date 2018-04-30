@@ -1,0 +1,49 @@
+﻿@model StableManager.Models.LessonToUsers
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>LessonToUsers</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="LessonToUsersID" />
+            <div class="form-group">
+                <label asp-for="ClientUserID" class="control-label"></label>
+                <select asp-for="ClientUserID" class="form-control" asp-items="ViewBag.ClientUserID"></select>
+                <span asp-validation-for="ClientUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstructorUserID" class="control-label"></label>
+                <select asp-for="InstructorUserID" class="form-control" asp-items="ViewBag.InstructorUserID"></select>
+                <span asp-validation-for="InstructorUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedOn" class="control-label"></label>
+                <input asp-for="ModifiedOn" class="form-control" />
+                <span asp-validation-for="ModifiedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifierUserID" class="control-label"></label>
+                <input asp-for="ModifierUserID" class="form-control" />
+                <span asp-validation-for="ModifierUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

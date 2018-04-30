@@ -1,0 +1,105 @@
+﻿@model StableManager.Models.Bill
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Bill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCreatedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillCreatedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillDueOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillDueOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillFrom)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillFrom)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillTo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNetTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillNetTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTaxTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillTaxTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCurrentAmountDue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillCurrentAmountDue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillPastDueAmountDue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillPastDueAmountDue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTotalAmountDue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillTotalAmountDue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCreatorID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BillCreatorID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifierUserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ModifierUserID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="BillID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

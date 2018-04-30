@@ -1,0 +1,62 @@
+﻿@model IEnumerable<StableManager.Models.Client>
+
+@{
+    ViewData["Title"] = "Clients";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.title</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreferredVet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreferredVetDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlternativeVet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlternativeVetDetails)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ClientID">@Html.DisplayFor(modelItem => item.ClientNumber)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ClientID">@Html.DisplayFor(modelItem => item.PreferredVet)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ClientID">@Html.DisplayFor(modelItem => item.PreferredVetDetails)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ClientID">@Html.DisplayFor(modelItem => item.AlternativeVet)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ClientID">@Html.DisplayFor(modelItem => item.AlternativeVetDetails)</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageClients").className = "active";
+</script>
+
+

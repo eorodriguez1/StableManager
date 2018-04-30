@@ -14,6 +14,7 @@ using StableManager.Models;
 using StableManager.Models.AccountViewModels;
 using StableManager.Services;
 
+
 namespace StableManager.Controllers
 {
     [Authorize]
@@ -64,7 +65,15 @@ namespace StableManager.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    //  var user = await _userManager.FindByEmailAsync(model.Email);
+                    //    await _userManager.AddClaimAsync(user, new Claim("IsAdmin","True"));
+
+                    var CurrentUser = await _userManager.FindByEmailAsync(model.Email);
+                    CurrentUser.LastLoggedOn = DateTime.Now;
+                    await _userManager.UpdateAsync(CurrentUser);
+
                     _logger.LogInformation("User logged in.");
+
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

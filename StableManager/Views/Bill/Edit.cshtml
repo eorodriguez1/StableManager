@@ -1,0 +1,103 @@
+﻿@model StableManager.Models.Bill
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Bill</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BillID" />
+            <div class="form-group">
+                <label asp-for="BillNumber" class="control-label"></label>
+                <input asp-for="BillNumber" class="form-control" />
+                <span asp-validation-for="BillNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillCreatedOn" class="control-label"></label>
+                <input asp-for="BillCreatedOn" class="form-control" />
+                <span asp-validation-for="BillCreatedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillDueOn" class="control-label"></label>
+                <input asp-for="BillDueOn" class="form-control" />
+                <span asp-validation-for="BillDueOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillFrom" class="control-label"></label>
+                <input asp-for="BillFrom" class="form-control" />
+                <span asp-validation-for="BillFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillTo" class="control-label"></label>
+                <input asp-for="BillTo" class="form-control" />
+                <span asp-validation-for="BillTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillNetTotal" class="control-label"></label>
+                <input asp-for="BillNetTotal" class="form-control" />
+                <span asp-validation-for="BillNetTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillTaxTotal" class="control-label"></label>
+                <input asp-for="BillTaxTotal" class="form-control" />
+                <span asp-validation-for="BillTaxTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillCurrentAmountDue" class="control-label"></label>
+                <input asp-for="BillCurrentAmountDue" class="form-control" />
+                <span asp-validation-for="BillCurrentAmountDue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillPastDueAmountDue" class="control-label"></label>
+                <input asp-for="BillPastDueAmountDue" class="form-control" />
+                <span asp-validation-for="BillPastDueAmountDue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillTotalAmountDue" class="control-label"></label>
+                <input asp-for="BillTotalAmountDue" class="form-control" />
+                <span asp-validation-for="BillTotalAmountDue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserID" class="control-label"></label>
+                <select asp-for="UserID" class="form-control" asp-items="ViewBag.UserID"></select>
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillCreatorID" class="control-label"></label>
+                <input asp-for="BillCreatorID" class="form-control" />
+                <span asp-validation-for="BillCreatorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedOn" class="control-label"></label>
+                <input asp-for="ModifiedOn" class="form-control" />
+                <span asp-validation-for="ModifiedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifierUserID" class="control-label"></label>
+                <input asp-for="ModifierUserID" class="form-control" />
+                <span asp-validation-for="ModifierUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageBills").className = "active";
+</script>

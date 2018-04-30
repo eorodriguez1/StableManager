@@ -1,0 +1,57 @@
+﻿@model StableManager.Models.BoardingType
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+<div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BoardingTypeName" class="control-label"></label>
+                    <input asp-for="BoardingTypeName" class="form-control" />
+                    <span asp-validation-for="BoardingTypeName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BoardingTypeNameShort" class="control-label"></label>
+                    <input asp-for="BoardingTypeNameShort" class="form-control" />
+                    <span asp-validation-for="BoardingTypeNameShort" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BoardingTypeDescription" class="control-label"></label>
+                    <input asp-for="BoardingTypeDescription" class="form-control" />
+                    <span asp-validation-for="BoardingTypeDescription" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <label asp-for="BoardingPrice" class="control-label"></label>
+                    <input asp-for="BoardingPrice" class="form-control" />
+                    <span asp-validation-for="BoardingPrice" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+            <a class="btn btn-default" asp-action="Index">Back</a>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

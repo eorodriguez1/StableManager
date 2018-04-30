@@ -1,0 +1,71 @@
+﻿@model IEnumerable<StableManager.Models.Animal>
+
+@{
+    ViewData["Title"] = "Animals";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnimalOwner)
+            <th>
+                @Html.DisplayNameFor(model => model.AnimalName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HealthConcerns)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecialDiet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DietDetails)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.IsActive)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.AnimalOwner.FullName)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.AnimalName)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.Gender)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.HealthConcerns)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.SpecialDiet)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.DietDetails)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageAnimals").className = "active";
+</script>

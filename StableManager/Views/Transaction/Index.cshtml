@@ -1,0 +1,79 @@
+﻿@model IEnumerable<StableManager.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Transaction History";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    double RunningTotal = 0;
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <a asp-action="AllTransactions">All Transactions</a> |
+    <a asp-action="CurrentTransactions">Current Transactions</a>
+</div>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a> 
+    <a class="btn btn-primary" asp-action="#"></a> 
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserCharged)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionMadeOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionAdditionalDescription)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionNumber)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.UserCharged.FullName)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionType.TransactionTypeName)</a>
+                </td>
+                <td>
+                    
+                    <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionValue)</a>
+                    @{RunningTotal += item.TransactionValue;}
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionMadeOn)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionAdditionalDescription)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pull-right">
+    <strong>Total transaction values: </strong> @RunningTotal
+</div>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageTransactions").className = "active";
+</script>

@@ -3,7 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-StableManager-B5A4A267-CBF1-4341-B88A-C7B1CD47835B</UserSecretsId>
+    <Version>0.0.1</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180228063428_Added DOB to animal model.cs" />
+    <Compile Remove="Data\Migrations\20180228063428_Added DOB to animal model.Designer.cs" />
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -16,6 +22,18 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\BillingViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\media\Backgrounds\1.jpg" />
+    <None Include="wwwroot\media\Banners\Banner1.jpg" />
+    <None Include="wwwroot\media\Gallery\General\Opec1.jpg" />
+    <None Include="wwwroot\media\Gallery\General\Zedan1.jpg" />
+    <None Include="wwwroot\media\Icons\32904.png" />
   </ItemGroup>
 
 </Project>

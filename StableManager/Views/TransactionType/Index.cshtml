@@ -1,0 +1,48 @@
+﻿@model IEnumerable<StableManager.Models.TransactionType>
+
+@{
+    ViewData["Title"] = "Transaction Types";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionTypeID">@Html.DisplayFor(modelItem => item.TransactionTypeName)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionTypeID">@Html.DisplayFor(modelItem => item.TransactionDescription)</a>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TransactionTypeID">@Html.DisplayFor(modelItem => item.Type)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageTransactionTypes").className = "active";
+</script>

@@ -1,0 +1,138 @@
+﻿@model StableManager.Models.UserViewModels.EditUserViewModel
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@{var IsUserAdmin = (await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded;}
+
+@{
+    ViewData["Title"] = "Edit User";
+    @if (IsUserAdmin)
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_ClientLayout.cshtml";
+    }
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <form asp-action="EditUser">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="UserID" />
+        @if (IsUserAdmin)
+        {
+            <h4>User Details</h4>
+        }
+        else
+        {
+            <h4>My Details</h4>
+        }
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+        <h4>Password</h4>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+
+            </div>
+        </div>
+        <hr />
+        <h4>Address</h4>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label asp-for="ProvState" class="control-label"></label>
+                <input asp-for="ProvState" class="form-control" />
+                <span asp-validation-for="ProvState" class="text-danger"></span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label asp-for="PostalCode" class="control-label"></label>
+                <input asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+        <h4>Contact Details</h4>
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+        <hr />
+        <h4>User Rights</h4>
+        <div class="row">
+            <div class="container-fluid">
+                <span class="user-rights"><input asp-for="ActiveUser" /> @Html.DisplayNameFor(model => model.ActiveUser)</span>
+                <span class="user-rights"><input asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)</span>
+                <span class="user-rights"><input asp-for="IsClient" /> @Html.DisplayNameFor(model => model.IsClient)</span>
+                <span class="user-rights"><input asp-for="IsInstructor" /> @Html.DisplayNameFor(model => model.IsInstructor)</span>
+                <span class="user-rights"><input asp-for="IsEmployee" /> @Html.DisplayNameFor(model => model.IsEmployee)</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container-fluid action-buttons">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a class="btn btn-default" asp-action="Index">Back</a>
+                <!--<a class="btn btn-primary" asp-action="Delete" asp-route-id="@Model.UserID">Delete</a>-->
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageUsers").className = "active";
+</script>

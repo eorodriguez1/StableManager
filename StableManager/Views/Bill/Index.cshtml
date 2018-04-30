@@ -1,0 +1,117 @@
+﻿@model IEnumerable<StableManager.Models.Bill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillCreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillDueOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillTo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillNetTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillTaxTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillCurrentAmountDue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillPastDueAmountDue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillTotalAmountDue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillCreatorID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifierUserID)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillCreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillDueOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillNetTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillTaxTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillCurrentAmountDue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillPastDueAmountDue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillTotalAmountDue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillCreatorID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifiedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModifierUserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BillID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.BillID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.BillID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageBills").className = "active";
+</script>

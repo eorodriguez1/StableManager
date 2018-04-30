@@ -1,0 +1,99 @@
+﻿@model StableManager.Models.StableDetails
+
+@{
+    ViewData["Title"] = "Stable Information";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="StableDetailsID" />
+
+        <h4>Stable Details</h4>
+        <div class="row">
+            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StableName)</label>
+                <input asp-for="StableName" class="form-control" />
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.TaxNumber)</label>
+                <input asp-for="TaxNumber" class="form-control" />
+            </div>
+        </div>
+        <hr />
+        <h4>Stable Address</h4>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StableAddress)</label>
+                <input asp-for="StableAddress" class="form-control" />
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StableCity)</label>
+                <input asp-for="StableCity" class="form-control" />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StableProvState)</label>
+                <input asp-for="StableProvState" class="form-control" />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StablePostalCode)</label>
+                <input asp-for="StablePostalCode" class="form-control" />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StableCountry)</label>
+                <input asp-for="StableCountry" class="form-control" />
+            </div>
+        </div>
+        <hr />
+        <h4>Stable Contact</h4>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.ContactName)</label>
+                <input asp-for="ContactName" class="form-control" />
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StableEmail)</label>
+                <input asp-for="StableEmail" class="form-control" />
+                <span asp-validation-for="StableEmail" class="text-danger"></span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.StablePhone)</label>
+                <input asp-for="StablePhone" class="form-control" />
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="container-fluid action-buttons">
+                <input type="submit" value="Update" class="btn btn-primary" />
+                <a class="btn btn-default" href="@Url.Action("Index")">Cancel</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container-fluid pull-right section-modifiedby">
+                <strong>@Html.DisplayNameFor(model => model.ModifiedOn) : </strong>
+                @Html.DisplayFor(model => model.ModifiedOn)
+                <br />
+                <strong>@Html.DisplayNameFor(model => model.ModifierUserID) : </strong>
+                @Html.DisplayFor(model => model.ModifierUserID)
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("StableDetails").className = "active";
+</script>

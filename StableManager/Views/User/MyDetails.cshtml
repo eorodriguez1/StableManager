@@ -1,0 +1,116 @@
+﻿@model StableManager.Models.ApplicationUser
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@{var IsUserAdmin = (await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded;}
+
+@{
+    ViewData["Title"] = "My Information";
+    @if (IsUserAdmin)
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_ClientLayout.cshtml";
+    }
+}
+
+
+<h3>@ViewBag.Title</h3>
+
+<div>
+    <hr />
+    <input type="hidden" asp-for="Id" />
+
+    <div class="row">
+        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.UserNumber)</label>
+            <input disabled="" asp-for="UserNumber" class="form-control" id="disabledInput" />
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.FirstName)</label>
+            <input disabled="" asp-for="FirstName" class="form-control" id="disabledInput" />
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.LastName)</label>
+            <input disabled="" asp-for="LastName" class="form-control" id="disabledInput" />
+        </div>
+    </div>
+    <hr />
+    <h4>Address</h4>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.Address)</label>
+            <input disabled="" asp-for="Address" class="form-control" id="disabledInput" />
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.City)</label>
+            <input disabled="" asp-for="City" class="form-control" id="disabledInput" />
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.ProvState)</label>
+            <input disabled="" asp-for="ProvState" class="form-control" id="disabledInput" />
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.PostalCode)</label>
+            <input disabled="" asp-for="PostalCode" class="form-control" id="disabledInput" />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.Country)</label>
+            <input disabled="" asp-for="Country" class="form-control" id="disabledInput" />
+        </div>
+    </div>
+    <hr />
+    <h4>Contact Details</h4>
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.Email)</label>
+            <input disabled="" asp-for="Email" class="form-control" id="disabledInput" />
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <label class="control-label" for="disabledInput">@Html.DisplayNameFor(model => model.PhoneNumber)</label>
+            <input disabled="" asp-for="PhoneNumber" class="form-control" id="disabledInput" />
+        </div>
+
+    </div>
+    <hr />
+    <h4>User Rights</h4>
+    <div class="row">
+        <div class="container-fluid">
+            <span class="user-rights"><input disabled="" asp-for="ActiveUser" /> @Html.DisplayNameFor(model => model.ActiveUser)</span>
+            <span class="user-rights"><input disabled="" asp-for="IsAdmin" /> @Html.DisplayNameFor(model => model.IsAdmin)</span>
+            <span class="user-rights"><input disabled="" asp-for="IsClient" /> @Html.DisplayNameFor(model => model.IsClient)</span>
+            <span class="user-rights"><input disabled="" asp-for="IsInstructor" /> @Html.DisplayNameFor(model => model.IsInstructor)</span>
+            <span class="user-rights"><input disabled="" asp-for="IsEmployee" /> @Html.DisplayNameFor(model => model.IsEmployee)</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container-fluid action-buttons">
+            <a class="btn btn-primary" asp-action="EditMyDetails" asp-route-id="@Model.Id">Edit</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container-fluid pull-right section-modifiedby">
+            <strong>@Html.DisplayNameFor(model => model.ModifiedOn) : </strong>
+            @Html.DisplayFor(model => model.ModifiedOn)
+            <br />
+            <strong>@Html.DisplayNameFor(model => model.ModifierUserID) : </strong>
+            @Html.DisplayFor(model => model.ModifierUserID)
+            <br />
+            <strong>@Html.DisplayNameFor(model => model.LastLoggedOn) : </strong>
+            @Html.DisplayFor(model => model.LastLoggedOn)
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<script language="javascript">
+    var menuItem = document.getElementById("MyDetails").className = "active";
+</script>
