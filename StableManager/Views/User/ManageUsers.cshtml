@@ -1,18 +1,10 @@
 ﻿@model IEnumerable<StableManager.Models.ApplicationUser>
-@using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
+
 
 @{
     ViewData["Title"] = "Manage Users";
 
-    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded)
-    {
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_ClientLayout.cshtml";
-    }
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>

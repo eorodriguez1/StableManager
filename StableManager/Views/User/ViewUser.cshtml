@@ -1,19 +1,8 @@
 ﻿@model StableManager.Models.ApplicationUser
-@using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
-
-@{var IsUserAdmin = (await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded;}
 
 @{
     ViewData["Title"] = "Details";
-    @if (IsUserAdmin)
-    {
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_ClientLayout.cshtml";
-    }
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
 }
 
 
@@ -22,14 +11,7 @@
 <div>
     <hr />
     <input type="hidden" asp-for="Id" />
-    @if (IsUserAdmin)
-    {
-        <h4>User Details</h4>
-    }
-    else
-    {
-        <h4>My Details</h4>
-    }
+    <h4>Details</h4>
 
 
     <div class="row">

@@ -1,19 +1,8 @@
 ﻿@model StableManager.Models.ApplicationUser
-@using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
-
-@{var IsUserAdmin = (await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded;}
 
 @{
     ViewData["Title"] = "My Information";
-    @if (IsUserAdmin)
-    {
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_ClientLayout.cshtml";
-    }
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
 }
 
 

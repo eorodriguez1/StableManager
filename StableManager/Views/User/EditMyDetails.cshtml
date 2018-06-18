@@ -1,19 +1,9 @@
 ﻿@model StableManager.Models.UserViewModels.EditUserViewModel
-@using Microsoft.AspNetCore.Authorization
-@inject IAuthorizationService AuthorizationService
 
-@{var IsUserAdmin = (await AuthorizationService.AuthorizeAsync(User, "RequireAdministratorRole")).Succeeded;}
 
 @{
     ViewData["Title"] = "Edit User";
-    @if (IsUserAdmin)
-    {
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_ClientLayout.cshtml";
-    }
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
 }
 
 
@@ -24,14 +14,7 @@
     <form asp-action="EditMyDetails">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="UserID" />
-        @if (IsUserAdmin)
-        {
-            <h4>User Details</h4>
-        }
-        else
-        {
-            <h4>My Details</h4>
-        }
+        <h4>Details</h4>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -43,7 +26,7 @@
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-        </div>  
+        </div>
         <hr />
         <h4>Password</h4>
         <div class="row">
@@ -123,7 +106,7 @@
         </div>
 
 
-        </form>
+    </form>
 
 </div>
 
