@@ -38,6 +38,8 @@ namespace StableManager.Controllers
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+
+      
         }
 
         /// <summary>
