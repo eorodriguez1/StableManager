@@ -1,0 +1,11 @@
+Version 0.5:
+
+Changes from Version 0:
+	DB:
+	Project now uses MS-SQL Server instead of local db file (.mdf).
+
+	Git:
+	All changes are now being tracked by git.
+
+Requirements:
+	MSSQL Server
