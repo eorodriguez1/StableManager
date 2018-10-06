@@ -22,11 +22,12 @@ namespace StableManager
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<ApplicationDbContext>();
+
                 try
                 {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-                    //SeedData.Initialize(services, testUserPw).Wait();
-                    DbInitializer.InitializeAsync(context, services).Wait();
+                    //Initializes database if default data is not found
+                    DbInitializer.InitializeAsync2(services).Wait();
                 }
                 catch (Exception ex)
                 {

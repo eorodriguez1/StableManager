@@ -8,4 +8,4 @@ Changes from Version 0:
 	All changes are now being tracked by git.
 
 Requirements:
-	MSSQL Server
+	MSSQL Server - Connection string is in appsettings.json file.
