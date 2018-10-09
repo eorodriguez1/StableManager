@@ -3,7 +3,13 @@
     padding-bottom: 20px;
     background-image: url("../media/Backgrounds/1.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 1800px;
+}
+
+.padded{
+    padding: 10px;
 }
 
 /* Wrapping element */

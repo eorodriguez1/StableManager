@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Services and Facilities - Overview";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="container col-lg-3 col-md-3 col-sm-4 col-xs-4">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a asp-area="" asp-controller="Home" asp-action="ServicesOverview">Overview</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="ServicesBoarding">Boarding</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="ServicesArena">Arena</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="ServicesCoaching">Coaching</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="ServicesEvents">Events</a></li>
+
+        </ul>
+    </div>
+    <div class="container-fluid col-lg-9 col-md-9 col-sm-8 col-xs-8">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Overview</div>
+            <div class="panel-body">
+                <div class="section">
+                    <h4>Boarding</h4>
+                    <div class="col-lg-5">
+                        <!--https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/H%C3%A4ststall_Elfviks_g%C3%A5rd_dec_2008.jpg/1200px-H%C3%A4ststall_Elfviks_g%C3%A5rd_dec_2008.jpg-->
+                        <img src="~/media/Gallery/Boarding/Indoor.jpg" class="img-responsive" />
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat urna sit amet massa porttitor, quis laoreet purus tincidunt. Donec aliquam dictum tempor. Sed pulvinar purus non odio ullamcorper imperdiet. In et vulputate nulla, sed fringilla orci. Quisque non mauris id risus imperdiet tristique. Praesent suscipit vel quam a hendrerit. Curabitur pretium sapien nec dui dictum tincidunt rutrum sed sapien. Suspendisse odio felis, facilisis a felis eu, tincidunt molestie elit. Maecenas ornare ante id malesuada luctus. Phasellus in vehicula ex. Nullam faucibus porta odio, a bibendum ex lacinia ac. Suspendisse finibus nisi vitae justo mattis, malesuada mattis magna rhoncus. Aliquam ullamcorper nunc scelerisque, bibendum nibh ut, aliquet diam. In in nibh nec arcu cursus semper sed sit amet quam. Quisque ut pretium justo, vel auctor lectus.
+                    </p>
+                    <p>
+                        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris non augue arcu. Maecenas efficitur, purus a lacinia hendrerit, dui mi dignissim nunc, a mattis dolor sapien ut purus. Donec sodales justo vitae felis dignissim iaculis. Duis vel elementum justo, a gravida dolor. Sed feugiat commodo nisi vitae dignissim. Mauris pellentesque, massa tincidunt ultricies fermentum, orci nulla congue augue, at posuere mauris mi rhoncus erat. Morbi ut dolor sed odio mattis aliquam id sed urna.
+                    </p>
+                </div>
+                <hr />
+                <div class="section">
+                    <h4>Arenas</h4>
+                    <div class="col-lg-5">
+                        <!--https://martincollinsusa.com/wp-content/uploads/2014/01/Screen-Shot-2014-01-30-at-11.33.59-AM.png-->
+                        <img src="~/media/Gallery/Arena/Outdoor.png" class="img-responsive" />
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus placerat urna sit amet massa porttitor, quis laoreet purus tincidunt. Donec aliquam dictum tempor. Sed pulvinar purus non odio ullamcorper imperdiet. In et vulputate nulla, sed fringilla orci. Quisque non mauris id risus imperdiet tristique. Praesent suscipit vel quam a hendrerit. Curabitur pretium sapien nec dui dictum tincidunt rutrum sed sapien. Suspendisse odio felis, facilisis a felis eu, tincidunt molestie elit. Maecenas ornare ante id malesuada luctus. Phasellus in vehicula ex. Nullam faucibus porta odio, a bibendum ex lacinia ac. Suspendisse finibus nisi vitae justo mattis, malesuada mattis magna rhoncus. Aliquam ullamcorper nunc scelerisque, bibendum nibh ut, aliquet diam. In in nibh nec arcu cursus semper sed sit amet quam. Quisque ut pretium justo, vel auctor lectus.
+                    </p>
+                    <p>
+                        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris non augue arcu. Maecenas efficitur, purus a lacinia hendrerit, dui mi dignissim nunc, a mattis dolor sapien ut purus. Donec sodales justo vitae felis dignissim iaculis. Duis vel elementum justo, a gravida dolor. Sed feugiat commodo nisi vitae dignissim. Mauris pellentesque, massa tincidunt ultricies fermentum, orci nulla congue augue, at posuere mauris mi rhoncus erat. Morbi ut dolor sed odio mattis aliquam id sed urna.
+                    </p>
+                </div>
+                <hr />
+                <div class="section">
+                    <h4>Coaching</h4>
+                    <div class="col-lg-5">
+                        <!--http://www.high50.com/wp-content/uploads/2014/12/First-horse-riding-lesson-at-50-620-Photo-from-Stocksy.jpg-->
+                        <img src="~/media/Gallery/Training/LessonsDressage.jpg" class="img-responsive" />
+                    </div>
+                    <p>
+                        Mauris gravida rhoncus massa quis posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras congue porttitor mi sit amet maximus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse tristique felis a sem molestie efficitur. Phasellus quis tempus arcu, eget pretium lacus. Etiam a molestie arcu. Aenean vestibulum, nunc ut varius interdum, orci urna blandit sem, non aliquet ipsum lorem a lacus.
+                    </p>
+                    <p>
+                        In hac habitasse platea dictumst. Fusce porttitor lacus augue, quis tempor turpis hendrerit a. Pellentesque elit ex, volutpat eget mattis at, varius et nulla. Curabitur sit amet ipsum quis purus auctor suscipit. Donec nisi felis, mattis nec fringilla at, sagittis eu nulla. Maecenas feugiat lacinia purus, id laoreet mi hendrerit eu. Sed pretium interdum tristique. Suspendisse eleifend purus sed eros gravida, a finibus mauris hendrerit. Curabitur condimentum ipsum felis, pretium dapibus nisi luctus id.
+                    </p>
+                    <p>
+                        Vestibulum sapien tellus, ullamcorper fringilla posuere a, molestie id est. Sed quis mollis lacus. Vivamus convallis ipsum a leo blandit pretium. Nam faucibus fermentum neque, vel accumsan justo iaculis eget. Donec ultrices nec massa convallis egestas. Praesent volutpat nunc sollicitudin neque mattis, at blandit sapien cursus. Suspendisse at enim tortor. Nam fringilla tortor non porta pharetra. Nunc luctus eleifend interdum. Nullam mattis ante dictum, mattis nisl eu, tincidunt ipsum. Proin sollicitudin elit ut rutrum placerat. Praesent pharetra velit nulla, vel egestas dui dictum a. Ut tincidunt mi et dignissim bibendum
+                    </p>
+                </div>
+                <hr />
+                <div class="section">
+                    <h4>Events</h4>
+                    <div class="col-lg-5">
+                        <!--https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/14/2016/03/SHOWING-TIPS-MM-large5-600x400.jpg-->
+                        <img src="~/media/Gallery/Events/HorseShow1.jpg" class="img-responsive" />
+                    </div>
+                    <p>
+                        Sed pellentesque et elit sit amet congue. Proin ornare dui et arcu semper, vitae ullamcorper dui rutrum. Donec mauris diam, ultricies sollicitudin accumsan at, laoreet non ante. Nam neque metus, scelerisque in vulputate vitae, aliquet ut magna. Praesent sed quam sit amet ipsum auctor rhoncus. Nulla pellentesque erat et nibh imperdiet suscipit. Quisque hendrerit dui id neque tincidunt malesuada. Ut at ultricies erat. Duis quis nisl a justo congue hendrerit. Morbi suscipit id nisl auctor interdum. Nunc in fermentum urna, id posuere dolor. Donec tincidunt vulputate turpis a euismod. Nulla porta urna eros. Mauris eleifend tempor elit scelerisque congue.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Integer auctor diam at nisi volutpat rutrum. Aliquam velit lacus, molestie nec porttitor sit amet, rutrum et felis. In massa ex, rhoncus quis est at, tempor mattis dolor. Cras sodales maximus ipsum, non semper ligula fermentum sed. Maecenas fermentum posuere ex ac varius. Aenean consectetur hendrerit urna et egestas. In pellentesque rhoncus sem, quis aliquet dui faucibus ac. Proin at tincidunt nulla, eget blandit nisl.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

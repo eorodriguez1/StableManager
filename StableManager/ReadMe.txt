@@ -7,5 +7,8 @@ Changes from Version 0:
 	Git:
 	All changes are now being tracked by git.
 
+	General Public sections:
+	Populated general public sections.
+
 Requirements:
 	MSSQL Server - Connection string is in appsettings.json file.

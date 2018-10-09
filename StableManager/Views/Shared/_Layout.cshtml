@@ -8,7 +8,7 @@
     <title>@ViewData["Title"] - StableManager</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-Slate.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-Sandstone.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -34,6 +34,8 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Gallery">Gallery</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="ServicesOverview">Services and Facilities</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
@@ -44,14 +46,16 @@
         <div class="panel panel-main panel-default">
             <div class="panel-body">
                 @RenderBody()
-              
+
+
+                <hr />
+                <footer>
+                    <p>&copy; 2018 - StableManager</p>
+                </footer>
             </div>
         </div>
 
-        <hr />
-        <footer>
-            <p>&copy; 2018 - StableManager</p>
-        </footer>
+
     </div>
 
     <environment include="Development">
