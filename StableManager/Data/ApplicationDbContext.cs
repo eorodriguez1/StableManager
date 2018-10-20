@@ -22,7 +22,7 @@ namespace StableManager.Data
         public DbSet<Boarding> Boardings { get; set; }
         public DbSet<TransactionType> TransactionType { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<AnimalHealthUpdates> AnimalHealthUpdates { get; set; }
+        public DbSet<AnimalUpdates> AnimalUpdates { get; set; }
         public DbSet<AnimalToOwner> AnimalToOwner { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Client> Clients { get; set; }
@@ -40,7 +40,7 @@ namespace StableManager.Data
             builder.Entity<Boarding>().ToTable("Boarding");
             builder.Entity<TransactionType>().ToTable("TransactionType");
             builder.Entity<Transaction>().ToTable("Transaction");
-            builder.Entity<AnimalHealthUpdates>().ToTable("AnimalHealthUpdates");
+            builder.Entity<AnimalUpdates>().ToTable("AnimalUpdates");
             builder.Entity<AnimalToOwner>().ToTable("AnimalToOwner");
             builder.Entity<Bill>().ToTable("Bill");
             builder.Entity<Client>().ToTable("Client");

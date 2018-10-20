@@ -54,10 +54,10 @@ namespace StableManager.Models
     }
 
 
-    public class AnimalHealthUpdates
+    public class AnimalUpdates
     {
         //ID
-        public string AnimalHealthUpdatesID { get; set; }
+        public string AnimalUpdatesID { get; set; }
 
         //details
         [Display(Name = "Name")]

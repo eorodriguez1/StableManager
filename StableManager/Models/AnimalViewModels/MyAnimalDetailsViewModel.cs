@@ -40,7 +40,7 @@ namespace StableManager.Models.AnimalViewModels
 
         //Updates
         [Display(Name = "Updates")]
-        public List<AnimalHealthUpdates> AnimalUpdates { get; set; }
+        public List<AnimalUpdates> AnimalUpdates { get; set; }
 
         //security things
         [Display(Name = "Modified On")]

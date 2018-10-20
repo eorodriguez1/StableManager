@@ -133,8 +133,8 @@
                             @Html.DisplayFor(modelItem => item.UserBy)
                         </td>
                         <td>
-                            <a asp-action="EditUpdate" asp-controller="AnimalHealthUpdate" asp-route-id="@item.AnimalHealthUpdatesID">Edit</a> |
-                            <a asp-action="DeleteUpdate" asp-controller="AnimalHealthUpdate" asp-route-id="@item.AnimalHealthUpdatesID">Delete</a>
+                            <a asp-action="EditUpdate" asp-controller="AnimalUpdate" asp-route-id="@item.AnimalUpdatesID">Edit</a> |
+                            <a asp-action="DeleteUpdate" asp-controller="AnimalUpdate" asp-route-id="@item.AnimalUpdatesID">Delete</a>
                         </td>
                     </tr>
         }
@@ -142,7 +142,7 @@
                 </table>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                <a class="btn btn-primary animal-button" asp-controller="AnimalHealthUpdate" asp-action="NewUpdate" asp-route-id="@Model.AnimalID">Add New Update</a>
+                <a class="btn btn-primary animal-button" asp-controller="AnimalUpdate" asp-action="NewUpdate" asp-route-id="@Model.AnimalID">Add New Update</a>
             </div>
         </div>
         <hr />

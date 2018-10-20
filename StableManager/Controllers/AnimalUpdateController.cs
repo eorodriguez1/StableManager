@@ -17,12 +17,12 @@ namespace StableManager.Controllers
     /// </summary>
     /// 
     [Authorize]
-    public class AnimalHealthUpdateController : Controller
+    public class AnimalUpdateController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public AnimalHealthUpdateController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public AnimalUpdateController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -57,7 +57,7 @@ namespace StableManager.Controllers
         [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> ManageUpdates()
         {
-            var applicationDbContext = _context.AnimalHealthUpdates.Include(a => a.Animal);
+            var applicationDbContext = _context.AnimalUpdates.Include(a => a.Animal);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -77,17 +77,17 @@ namespace StableManager.Controllers
             }
 
             //find the update based on the id given, if it doesnt match up to an entry, return not found
-            var animalHealthUpdates = await _context.AnimalHealthUpdates
+            var AnimalUpdates = await _context.AnimalUpdates
                 .Include(a => a.Animal)
-                .SingleOrDefaultAsync(m => m.AnimalHealthUpdatesID == id);
-            if (animalHealthUpdates == null)
+                .SingleOrDefaultAsync(m => m.AnimalUpdatesID == id);
+            if (AnimalUpdates == null)
             {
                 return NotFound();
             }
 
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
             //return the health update
-            return View(animalHealthUpdates);
+            return View(AnimalUpdates);
         }
 
 
@@ -118,7 +118,7 @@ namespace StableManager.Controllers
             }
 
             //create a new update and sync it with the specified animal
-            var AnimalUpdate = new AnimalHealthUpdates();
+            var AnimalUpdate = new AnimalUpdates();
             AnimalUpdate.AnimalID = id;
 
 
@@ -132,14 +132,14 @@ namespace StableManager.Controllers
         /// The posting action of the new Update. 
         /// </summary>
         /// <param name="id">animal id</param>
-        /// <param name="animalHealthUpdates">animal update created in previous page</param>
+        /// <param name="AnimalUpdates">animal update created in previous page</param>
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NewUpdate(string id, [Bind("AnimalHealthUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalHealthUpdates animalHealthUpdates)
+        public async Task<IActionResult> NewUpdate(string id, [Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             //if the id does not match the animal id passed in
-            if (id != animalHealthUpdates.AnimalID)
+            if (id != AnimalUpdates.AnimalID)
             {
                 return NotFound();
             }
@@ -150,11 +150,11 @@ namespace StableManager.Controllers
 
                 //update the modified by and modified on fields
                 var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-                animalHealthUpdates.ModifierUserID = CurrentUser.FullName;
-                animalHealthUpdates.ModifiedOn = DateTime.Now;
+                AnimalUpdates.ModifierUserID = CurrentUser.FullName;
+                AnimalUpdates.ModifiedOn = DateTime.Now;
 
                 //save the object
-                _context.Add(animalHealthUpdates);
+                _context.Add(AnimalUpdates);
                 await _context.SaveChangesAsync();
 
                 //return to my animal
@@ -162,12 +162,12 @@ namespace StableManager.Controllers
             }
 
             //return
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
-            return View(animalHealthUpdates);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
+            return View(AnimalUpdates);
         }
 
 
-        // GET: AnimalHealthUpdate/Create
+        // GET: AnimalUpdate/Create
         public IActionResult Create()
         {
 
@@ -175,30 +175,30 @@ namespace StableManager.Controllers
             return View();
         }
 
-        // POST: AnimalHealthUpdate/Create
+        // POST: AnimalUpdate/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AnimalHealthUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalHealthUpdates animalHealthUpdates)
+        public async Task<IActionResult> Create([Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             if (ModelState.IsValid)
             {
                 //update the modified by and modified on fields
                 var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-                animalHealthUpdates.ModifierUserID = CurrentUser.FullName;
-                animalHealthUpdates.ModifiedOn = DateTime.Now;
+                AnimalUpdates.ModifierUserID = CurrentUser.FullName;
+                AnimalUpdates.ModifiedOn = DateTime.Now;
 
-                _context.Add(animalHealthUpdates);
+                _context.Add(AnimalUpdates);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
-            return View(animalHealthUpdates);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
+            return View(AnimalUpdates);
         }
 
 
-        // GET: AnimalHealthUpdate/Edit/5
+        // GET: AnimalUpdate/Edit/5
         public async Task<IActionResult> Update(string id)
         {
             //if the id is null, return not found
@@ -208,14 +208,14 @@ namespace StableManager.Controllers
             }
 
             //fetch the update from the context, if not found return not found
-            var animalHealthUpdates = await _context.AnimalHealthUpdates.SingleOrDefaultAsync(m => m.AnimalHealthUpdatesID == id);
-            if (animalHealthUpdates == null)
+            var AnimalUpdates = await _context.AnimalUpdates.SingleOrDefaultAsync(m => m.AnimalUpdatesID == id);
+            if (AnimalUpdates == null)
             {
                 return NotFound();
             }
 
             //find the animal based on the id given, if it doesnt match up to an entry, return not found
-            var animal = await _context.Animals.SingleOrDefaultAsync(m => m.AnimalID == animalHealthUpdates.AnimalID);
+            var animal = await _context.Animals.SingleOrDefaultAsync(m => m.AnimalID == AnimalUpdates.AnimalID);
             //get the current user
             var AppUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
@@ -225,25 +225,25 @@ namespace StableManager.Controllers
                 return NotFound();
             }
 
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
-            return View(animalHealthUpdates);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
+            return View(AnimalUpdates);
         }
 
-        // POST: AnimalHealthUpdate/Edit/5
+        // POST: AnimalUpdate/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(string id, [Bind("AnimalHealthUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalHealthUpdates animalHealthUpdates)
+        public async Task<IActionResult> Update(string id, [Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             //if the id passed in and the model id do not match, return not found
-            if (id != animalHealthUpdates.AnimalHealthUpdatesID)
+            if (id != AnimalUpdates.AnimalUpdatesID)
             {
                 return NotFound();
             }
 
             //find the animal based on the id given, if it doesnt match up to an entry, return not found
-            var animal = await _context.Animals.SingleOrDefaultAsync(m => m.AnimalID == animalHealthUpdates.AnimalID);
+            var animal = await _context.Animals.SingleOrDefaultAsync(m => m.AnimalID == AnimalUpdates.AnimalID);
             //get the current user
             var AppUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
@@ -259,16 +259,16 @@ namespace StableManager.Controllers
                 try
                 {
 
-                    animalHealthUpdates.ModifierUserID = AppUser.FullName;
-                    animalHealthUpdates.ModifiedOn = DateTime.Now;
+                    AnimalUpdates.ModifierUserID = AppUser.FullName;
+                    AnimalUpdates.ModifiedOn = DateTime.Now;
 
                     //save the update
-                    _context.Update(animalHealthUpdates);
+                    _context.Update(AnimalUpdates);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AnimalHealthUpdatesExists(animalHealthUpdates.AnimalHealthUpdatesID))
+                    if (!AnimalUpdatesExists(AnimalUpdates.AnimalUpdatesID))
                     {
                         return NotFound();
                     }
@@ -278,16 +278,16 @@ namespace StableManager.Controllers
                     }
                 }
                 //return to animal view
-                return RedirectToAction("MyAnimalDetails", "Animal", new { id = animalHealthUpdates.AnimalID });
+                return RedirectToAction("MyAnimalDetails", "Animal", new { id = AnimalUpdates.AnimalID });
             }
 
             //return if for edits if model is incorrect
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
-            return View(animalHealthUpdates);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
+            return View(AnimalUpdates);
         }
 
 
-        // GET: AnimalHealthUpdate/Edit/5
+        // GET: AnimalUpdate/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             //if the id is null, return not found
@@ -297,26 +297,26 @@ namespace StableManager.Controllers
             }
 
             //fetch the update from the context, if not found return not found
-            var animalHealthUpdates = await _context.AnimalHealthUpdates.SingleOrDefaultAsync(m => m.AnimalHealthUpdatesID == id);
-            if (animalHealthUpdates == null)
+            var AnimalUpdates = await _context.AnimalUpdates.SingleOrDefaultAsync(m => m.AnimalUpdatesID == id);
+            if (AnimalUpdates == null)
             {
                 return NotFound();
             }
 
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
-            return View(animalHealthUpdates);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
+            return View(AnimalUpdates);
         }
 
 
-        // POST: AnimalHealthUpdate/Edit/5
+        // POST: AnimalUpdate/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("AnimalHealthUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalHealthUpdates animalHealthUpdates)
+        public async Task<IActionResult> Edit(string id, [Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             //if the id passed in and the model id do not match, return not found
-            if (id != animalHealthUpdates.AnimalHealthUpdatesID)
+            if (id != AnimalUpdates.AnimalUpdatesID)
             {
                 return NotFound();
             }
@@ -329,16 +329,16 @@ namespace StableManager.Controllers
 
                     //update the modified by and modified on fields
                     var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-                    animalHealthUpdates.ModifierUserID = CurrentUser.FirstName + " " + CurrentUser.LastName;
-                    animalHealthUpdates.ModifiedOn = DateTime.Now;
+                    AnimalUpdates.ModifierUserID = CurrentUser.FirstName + " " + CurrentUser.LastName;
+                    AnimalUpdates.ModifiedOn = DateTime.Now;
 
                     //save the update
-                    _context.Update(animalHealthUpdates);
+                    _context.Update(AnimalUpdates);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AnimalHealthUpdatesExists(animalHealthUpdates.AnimalHealthUpdatesID))
+                    if (!AnimalUpdatesExists(AnimalUpdates.AnimalUpdatesID))
                     {
                         return NotFound();
                     }
@@ -352,12 +352,12 @@ namespace StableManager.Controllers
             }
 
             //return if for edits if model is incorrect
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
-            return View(animalHealthUpdates);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
+            return View(AnimalUpdates);
         }
 
 
-        // GET: AnimalHealthUpdate/Delete/5
+        // GET: AnimalUpdate/Delete/5
         public async Task<IActionResult> DeleteUpdate(string id)
         {
             if (id == null)
@@ -365,16 +365,16 @@ namespace StableManager.Controllers
                 return NotFound();
             }
 
-            var animalHealthUpdates = await _context.AnimalHealthUpdates
+            var AnimalUpdates = await _context.AnimalUpdates
                 .Include(a => a.Animal)
-                .SingleOrDefaultAsync(m => m.AnimalHealthUpdatesID == id);
-            if (animalHealthUpdates == null)
+                .SingleOrDefaultAsync(m => m.AnimalUpdatesID == id);
+            if (AnimalUpdates == null)
             {
                 return NotFound();
             }
 
             //find the animal based on the id given, if it doesnt match up to an entry, return not found
-            var animal = await _context.Animals.SingleOrDefaultAsync(m => m.AnimalID == animalHealthUpdates.AnimalID);
+            var animal = await _context.Animals.SingleOrDefaultAsync(m => m.AnimalID == AnimalUpdates.AnimalID);
             //get the current user
             var AppUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
@@ -384,24 +384,24 @@ namespace StableManager.Controllers
                 return NotFound();
             }
 
-            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", animalHealthUpdates.AnimalID);
-            return View(animalHealthUpdates);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName", AnimalUpdates.AnimalID);
+            return View(AnimalUpdates);
         }
 
-        // POST: AnimalHealthUpdate/Delete/5
+        // POST: AnimalUpdate/Delete/5
         [HttpPost, ActionName("DeleteUpdate")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var animalHealthUpdates = await _context.AnimalHealthUpdates.SingleOrDefaultAsync(m => m.AnimalHealthUpdatesID == id);
-            _context.AnimalHealthUpdates.Remove(animalHealthUpdates);
+            var AnimalUpdates = await _context.AnimalUpdates.SingleOrDefaultAsync(m => m.AnimalUpdatesID == id);
+            _context.AnimalUpdates.Remove(AnimalUpdates);
             await _context.SaveChangesAsync();
-            return RedirectToAction("MyAnimalDetails", "Animal", new { id = animalHealthUpdates.AnimalID });
+            return RedirectToAction("MyAnimalDetails", "Animal", new { id = AnimalUpdates.AnimalID });
         }
 
-        private bool AnimalHealthUpdatesExists(string id)
+        private bool AnimalUpdatesExists(string id)
         {
-            return _context.AnimalHealthUpdates.Any(e => e.AnimalHealthUpdatesID == id);
+            return _context.AnimalUpdates.Any(e => e.AnimalUpdatesID == id);
         }
 
     }

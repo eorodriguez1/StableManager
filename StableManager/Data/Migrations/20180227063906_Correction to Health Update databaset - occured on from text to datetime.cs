@@ -10,7 +10,7 @@ namespace StableManager.Data.Migrations
         {
             migrationBuilder.AlterColumn<DateTime>(
                 name: "DateOccured",
-                table: "AnimalHealthUpdates",
+                table: "AnimalUpdates",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -20,7 +20,7 @@ namespace StableManager.Data.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "DateOccured",
-                table: "AnimalHealthUpdates",
+                table: "AnimalUpdates",
                 nullable: true,
                 oldClrType: typeof(DateTime));
         }

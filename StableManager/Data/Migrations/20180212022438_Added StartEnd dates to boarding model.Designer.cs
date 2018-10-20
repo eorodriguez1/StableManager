@@ -162,9 +162,9 @@ namespace StableManager.Data.Migrations
                     b.ToTable("Animal");
                 });
 
-            modelBuilder.Entity("StableManager.Models.AnimalHealthUpdates", b =>
+            modelBuilder.Entity("StableManager.Models.AnimalUpdates", b =>
                 {
-                    b.Property<string>("AnimalHealthUpdatesID")
+                    b.Property<string>("AnimalUpdatesID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AnimalID");
@@ -181,11 +181,11 @@ namespace StableManager.Data.Migrations
 
                     b.Property<string>("UserBy");
 
-                    b.HasKey("AnimalHealthUpdatesID");
+                    b.HasKey("AnimalUpdatesID");
 
                     b.HasIndex("AnimalID");
 
-                    b.ToTable("AnimalHealthUpdates");
+                    b.ToTable("AnimalUpdates");
                 });
 
             modelBuilder.Entity("StableManager.Models.AnimalToUser", b =>
@@ -571,7 +571,7 @@ namespace StableManager.Data.Migrations
                         .HasForeignKey("AnimalTypeID");
                 });
 
-            modelBuilder.Entity("StableManager.Models.AnimalHealthUpdates", b =>
+            modelBuilder.Entity("StableManager.Models.AnimalUpdates", b =>
                 {
                     b.HasOne("StableManager.Models.Animal", "Animal")
                         .WithMany("HealthUpdates")

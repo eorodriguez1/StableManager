@@ -79,7 +79,7 @@ namespace StableManager.Controllers
                 MyAnimaslVM.HealthConcerns = animal.HealthConcerns;
 
                 //get the list of health updates for each animal
-                var HealthUpdates = await _context.AnimalHealthUpdates.Where(hu => hu.AnimalID == animal.AnimalID).OrderByDescending(hu => hu.DateOccured).ToListAsync();
+                var HealthUpdates = await _context.AnimalUpdates.Where(hu => hu.AnimalID == animal.AnimalID).OrderByDescending(hu => hu.DateOccured).ToListAsync();
 
                 //if updates are found, update the VM
                 if (HealthUpdates.Count > 0)
@@ -164,7 +164,7 @@ namespace StableManager.Controllers
             }
 
             //returns a list of health updates for an specific animal. If empty, returns nothing
-            var Updates = await _context.AnimalHealthUpdates.Where(a => a.AnimalID.Equals(id)).OrderByDescending(u => u.DateOccured).ToListAsync();
+            var Updates = await _context.AnimalUpdates.Where(a => a.AnimalID.Equals(id)).OrderByDescending(u => u.DateOccured).ToListAsync();
 
             //this sets up the Animal View Model that can be seen by any user.
             var MyAnimalVM = new MyAnimalDetailsViewModel();
@@ -231,7 +231,7 @@ namespace StableManager.Controllers
             }
 
             //returns a list of health updates for an specific animal. If empty, returns nothing
-            var Updates = await _context.AnimalHealthUpdates.Where(a => a.AnimalID.Equals(id)).OrderByDescending(u => u.DateOccured).ToListAsync();
+            var Updates = await _context.AnimalUpdates.Where(a => a.AnimalID.Equals(id)).OrderByDescending(u => u.DateOccured).ToListAsync();
 
             //this sets up the Animal View Model that can be seen by any user.
             var MyAnimalVM = new MyAnimalDetailsViewModel();

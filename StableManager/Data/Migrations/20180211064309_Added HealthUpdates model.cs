@@ -15,10 +15,10 @@ namespace StableManager.Data.Migrations
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
-                name: "AnimalHealthUpdates",
+                name: "AnimalUpdates",
                 columns: table => new
                 {
-                    AnimalHealthUpdatesID = table.Column<string>(nullable: false),
+                    AnimalUpdatesID = table.Column<string>(nullable: false),
                     AnimalID = table.Column<string>(nullable: true),
                     DateOccured = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -29,9 +29,9 @@ namespace StableManager.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AnimalHealthUpdates", x => x.AnimalHealthUpdatesID);
+                    table.PrimaryKey("PK_AnimalUpdates", x => x.AnimalUpdatesID);
                     table.ForeignKey(
-                        name: "FK_AnimalHealthUpdates_Animal_AnimalID",
+                        name: "FK_AnimalUpdates_Animal_AnimalID",
                         column: x => x.AnimalID,
                         principalTable: "Animal",
                         principalColumn: "AnimalID",
@@ -39,15 +39,15 @@ namespace StableManager.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AnimalHealthUpdates_AnimalID",
-                table: "AnimalHealthUpdates",
+                name: "IX_AnimalUpdates_AnimalID",
+                table: "AnimalUpdates",
                 column: "AnimalID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AnimalHealthUpdates");
+                name: "AnimalUpdates");
 
             migrationBuilder.DropColumn(
                 name: "Type",

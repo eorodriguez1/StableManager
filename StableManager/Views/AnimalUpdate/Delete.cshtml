@@ -1,4 +1,4 @@
-﻿@model StableManager.Models.AnimalHealthUpdates
+﻿@model StableManager.Models.AnimalUpdates
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,7 +8,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>AnimalHealthUpdates</h4>
+    <h4>AnimalUpdates</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -56,7 +56,7 @@
     </dl>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="AnimalHealthUpdatesID" />
+        <input type="hidden" asp-for="AnimalUpdatesID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

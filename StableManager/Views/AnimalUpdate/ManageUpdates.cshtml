@@ -1,7 +1,7 @@
-﻿@model IEnumerable<StableManager.Models.AnimalHealthUpdates>
+﻿@model IEnumerable<StableManager.Models.AnimalUpdates>
 
 @{
-    ViewData["Title"] = "Health Updates";
+    ViewData["Title"] = "Updates";
     Layout = "~/Views/Shared/_MenuLayout.cshtml";
 }
 
@@ -36,19 +36,19 @@
         {
             <tr>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalHealthUpdatesID">@Html.DisplayFor(modelItem => item.Animal.AnimalName)</a>
+                    <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.Animal.AnimalName)</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalHealthUpdatesID">@Html.DisplayFor(modelItem => item.Name)</a>
+                    <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.Name)</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalHealthUpdatesID">@Html.DisplayFor(modelItem => item.Description)</a>
+                    <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.Description)</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalHealthUpdatesID">@Html.DisplayFor(modelItem => item.DateOccured)</a>
+                    <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.DateOccured)</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalHealthUpdatesID">@Html.DisplayFor(modelItem => item.UserBy)</a>
+                    <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.UserBy)</a>
                 </td>
 
             </tr>

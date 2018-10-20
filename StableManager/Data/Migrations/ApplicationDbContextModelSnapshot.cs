@@ -167,32 +167,6 @@ namespace StableManager.Data.Migrations
                     b.ToTable("Animal");
                 });
 
-            modelBuilder.Entity("StableManager.Models.AnimalHealthUpdates", b =>
-                {
-                    b.Property<string>("AnimalHealthUpdatesID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AnimalID");
-
-                    b.Property<DateTime>("DateOccured");
-
-                    b.Property<string>("Description");
-
-                    b.Property<DateTime>("ModifiedOn");
-
-                    b.Property<string>("ModifierUserID");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("UserBy");
-
-                    b.HasKey("AnimalHealthUpdatesID");
-
-                    b.HasIndex("AnimalID");
-
-                    b.ToTable("AnimalHealthUpdates");
-                });
-
             modelBuilder.Entity("StableManager.Models.AnimalToOwner", b =>
                 {
                     b.Property<string>("AnimalToOwnerID")
@@ -217,6 +191,32 @@ namespace StableManager.Data.Migrations
                     b.HasIndex("OwnerID");
 
                     b.ToTable("AnimalToOwner");
+                });
+
+            modelBuilder.Entity("StableManager.Models.AnimalUpdates", b =>
+                {
+                    b.Property<string>("AnimalUpdatesID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AnimalID");
+
+                    b.Property<DateTime>("DateOccured");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("ModifiedOn");
+
+                    b.Property<string>("ModifierUserID");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UserBy");
+
+                    b.HasKey("AnimalUpdatesID");
+
+                    b.HasIndex("AnimalID");
+
+                    b.ToTable("AnimalUpdates");
                 });
 
             modelBuilder.Entity("StableManager.Models.ApplicationUser", b =>
@@ -634,13 +634,6 @@ namespace StableManager.Data.Migrations
                         .HasForeignKey("AnimalOwnerID");
                 });
 
-            modelBuilder.Entity("StableManager.Models.AnimalHealthUpdates", b =>
-                {
-                    b.HasOne("StableManager.Models.Animal", "Animal")
-                        .WithMany()
-                        .HasForeignKey("AnimalID");
-                });
-
             modelBuilder.Entity("StableManager.Models.AnimalToOwner", b =>
                 {
                     b.HasOne("StableManager.Models.Animal", "Animal")
@@ -650,6 +643,13 @@ namespace StableManager.Data.Migrations
                     b.HasOne("StableManager.Models.ApplicationUser", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerID");
+                });
+
+            modelBuilder.Entity("StableManager.Models.AnimalUpdates", b =>
+                {
+                    b.HasOne("StableManager.Models.Animal", "Animal")
+                        .WithMany()
+                        .HasForeignKey("AnimalID");
                 });
 
             modelBuilder.Entity("StableManager.Models.Bill", b =>
