@@ -48,6 +48,10 @@
     min-width: 1000px;
 }
 
+.panel-empty {
+    min-height: 300px;
+}
+
 .panel-side {
     margin-top: 15px;
 }
@@ -100,4 +104,8 @@
 .animal-button {
         margin-top:auto;
         margin-bottom:auto;
-    }
+}
+
+.user-list-checkbox{
+    padding-left:15px;
+}

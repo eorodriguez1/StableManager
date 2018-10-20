@@ -7,10 +7,18 @@
 
 <h3>@ViewBag.Title</h3>
 
+@if (Model.Count() < 1)
+{
+    <div class="panel">
+        You do not have any animals registered in the system. Please contact an administrator to add a new animal to the system.
+    </div>
+}
+
 @foreach (var item in Model)
 {
     <div class="panel panel-default">
         <div class="panel-body panel-myanimal">
+
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                 <div class="row col-lg-12">
                     <strong>@Html.DisplayNameFor(modelItem => modelItem.AnimalName):</strong>

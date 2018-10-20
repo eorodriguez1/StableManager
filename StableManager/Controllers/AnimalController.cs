@@ -170,7 +170,6 @@ namespace StableManager.Controllers
             var MyAnimalVM = new MyAnimalDetailsViewModel();
             MyAnimalVM.AnimalID = animal.AnimalID;
             MyAnimalVM.AnimalName = animal.AnimalName;
-            MyAnimalVM.DOB = animal.DOB;
             MyAnimalVM.Breed = animal.Breed;
             MyAnimalVM.Gender = animal.Gender;
             MyAnimalVM.SpecialDiet = animal.SpecialDiet;
@@ -179,6 +178,8 @@ namespace StableManager.Controllers
             MyAnimalVM.ModifierUserID = animal.ModifierUserID;
             MyAnimalVM.HealthConcerns = animal.HealthConcerns;
             MyAnimalVM.AnimalUpdates = Updates;
+            MyAnimalVM.AnimalType = animal.AnimalType;
+            MyAnimalVM.IsActive = animal.IsActive;
 
             //We get the boarding for the animal
             var AnimalBoarding = await _context.Boardings.Where(b => b.AnimalID.Equals(id)).OrderByDescending(b => b.StartedBoard).FirstOrDefaultAsync();
@@ -236,7 +237,6 @@ namespace StableManager.Controllers
             var MyAnimalVM = new MyAnimalDetailsViewModel();
             MyAnimalVM.AnimalID = animal.AnimalID;
             MyAnimalVM.AnimalName = animal.AnimalName;
-            MyAnimalVM.DOB = animal.DOB;
             MyAnimalVM.Breed = animal.Breed;
             MyAnimalVM.Gender = animal.Gender;
             MyAnimalVM.SpecialDiet = animal.SpecialDiet;
@@ -245,6 +245,8 @@ namespace StableManager.Controllers
             MyAnimalVM.ModifierUserID = animal.ModifierUserID;
             MyAnimalVM.HealthConcerns = animal.HealthConcerns;
             MyAnimalVM.AnimalUpdates = Updates;
+            MyAnimalVM.AnimalType = animal.AnimalType;
+            MyAnimalVM.IsActive = animal.IsActive;
 
             //We get the boarding for the animal
             var AnimalBoarding = await _context.Boardings.Where(b => b.AnimalID.Equals(id)).OrderByDescending(b => b.StartedBoard).FirstOrDefaultAsync();

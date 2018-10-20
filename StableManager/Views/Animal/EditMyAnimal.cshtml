@@ -28,30 +28,32 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-2 col-xs-12">
                         <div class="form-group">
+                            <label asp-for="AnimalType" class="control-label"></label>
+                            <input disabled="" asp-for="AnimalType" class="form-control" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-2 col-xs-12">
+                        <div class="form-group">
                             <label asp-for="Gender" class="control-label"></label>
                             <input disabled="" asp-for="Gender" class="form-control" />
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-1 col-xs-12">
-                        <div class="form-group">
-                            <label asp-for="DOB" class="control-label"></label>
-                            <input disabled="" asp-for="DOB" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Age</label>
-                            <text disabled="" class="form-control">11</text>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-2 col-xs-12">
+                    <div class="col-lg-5 col-md-5 col-sm-3 col-xs-12">
                         <div class="form-group">
                             <label asp-for="Breed" class="control-label"></label>
                             <input disabled="" asp-for="Breed" class="form-control" />
                         </div>
                     </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Age</label>
+                            <text disabled="" class="form-control">11</text>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -71,7 +73,7 @@
         </div>
 
         <hr />
-        <h4>Health Concerns</h4>
+        <h4>General Notes</h4>
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                 <div class="form-group">
@@ -97,7 +99,7 @@
         </div>
 
         <hr />
-        <h4>Updates</h4>
+        <h4>History</h4>
 
         <div class="row">
 

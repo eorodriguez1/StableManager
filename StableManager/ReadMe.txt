@@ -12,3 +12,7 @@ Changes from Version 0:
 
 Requirements:
 	MSSQL Server - Connection string is in appsettings.json file.
+
+Default Credentials:
+	Admin username: Admin@admin.com
+	Admin password: Admin123! 

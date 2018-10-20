@@ -22,22 +22,46 @@
             <th>
                 Phone Number
             </th>
+            <th>
+                Admin
+            </th>
+            <th>
+                Employee
+            </th>
+            <th>
+                Client
+            </th>
+            <th>
+                Instructor
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ActiveUser)
-                </td>
-                <td>
-                    <a asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FullName)</a>
-                </td>
-                <td>
-                    <a asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.PhoneNumber)</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <span class="user-list-checkbox">@Html.DisplayFor(modelItem => item.ActiveUser)</span>
+            </td>
+            <td>
+                <a asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.FullName)</a>
+            </td>
+            <td>
+                <a asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.PhoneNumber)</a>
+            </td>
+            <td>
+                <a class="user-list-checkbox" asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.IsAdmin)</a>
+            </td>
+            <td>
+                <a class="user-list-checkbox" asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.IsEmployee)</a>
+            </td>
+            <td>
+                <a class="user-list-checkbox" asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.IsClient)</a>
+            </td>
+            <td>
+                <a class="user-list-checkbox" asp-action="ViewUser" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.IsInstructor)</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

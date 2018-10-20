@@ -27,8 +27,6 @@ namespace StableManager.Models
         public string Gender { get; set; }
         [Display(Name = "Age")]
         public int Age { get; set; }
-        [Display(Name = "Date of Birth")]
-        public DateTime DOB { get; set; }
         [Display(Name = "Type")]
         public string AnimalType { get; set; }
         [Display(Name = "Active")]

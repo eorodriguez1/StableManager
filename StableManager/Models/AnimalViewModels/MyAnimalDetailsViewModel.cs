@@ -19,8 +19,10 @@ namespace StableManager.Models.AnimalViewModels
         public string Breed { get; set; }
         [Display(Name = "Gender")]
         public string Gender { get; set; }
-        [Display(Name = "Date of Birth")]
-        public DateTime DOB { get; set; }
+        [Display(Name = "Type")]
+        public string AnimalType { get; set; }
+        [Display(Name = "Active")]
+        public bool IsActive { get; set; }
 
         //special information
         [Display(Name = "Health Concerns")]
