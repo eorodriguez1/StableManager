@@ -21,8 +21,8 @@ namespace StableManager.Models.AnimalViewModels
         public string Gender { get; set; }
 
         //special information
-        [Display(Name = "Health Concerns")]
-        public string HealthConcerns { get; set; }
+        [Display(Name = "Notes")]
+        public string Notes { get; set; }
         [Display(Name = "Diet Details")]
         public string DietDetails { get; set; }
 
@@ -30,9 +30,9 @@ namespace StableManager.Models.AnimalViewModels
         //Updates
         [Display(Name = "Updates To Date")]
         public int UpdatesToDate { get; set; }
-        [Display(Name = "Latest Update To")]
+        [Display(Name = "Latest Update")]
         public string LatestUpdate { get; set; }
-        [Display(Name = "Updated Occured On")]
+        [Display(Name = "Updated On")]
         public DateTime UpdatedOccuredOn { get; set; }
 
     }

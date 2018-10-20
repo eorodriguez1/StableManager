@@ -25,8 +25,8 @@ namespace StableManager.Models.AnimalViewModels
         public bool IsActive { get; set; }
 
         //special information
-        [Display(Name = "Health Concerns")]
-        public string HealthConcerns { get; set; }
+        [Display(Name = "Notes")]
+        public string Notes { get; set; }
         [Display(Name = "Diet Required")]
         public Boolean SpecialDiet { get; set; }
         [Display(Name = "Diet Details")]

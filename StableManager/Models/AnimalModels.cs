@@ -33,8 +33,8 @@ namespace StableManager.Models
         public bool IsActive { get; set; }
 
         //special information
-        [Display(Name = "Health Concerns")]
-        public string HealthConcerns { get; set; }
+        [Display(Name = "Notes")]
+        public string Notes { get; set; }
         [Display(Name = "Diet Required")]
         public Boolean SpecialDiet { get; set; }
         [Display(Name = "Diet Details")]
@@ -60,8 +60,6 @@ namespace StableManager.Models
         public string AnimalUpdatesID { get; set; }
 
         //details
-        [Display(Name = "Name")]
-        public string Name { get; set; }
         [Display(Name = "Description")]
         public string Description { get; set; }
         [Display(Name = "Date")]

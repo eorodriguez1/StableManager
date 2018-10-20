@@ -22,8 +22,6 @@ namespace StableManager.Models
         //Boarding information
         [Display(Name = "Boarding Type")]
         public string BoardingTypeName { get; set; }
-        [Display(Name = "Short Name")]
-        public string BoardingTypeNameShort { get; set; }
         [Display(Name = "Description")]
         public string BoardingTypeDescription { get; set; }
 

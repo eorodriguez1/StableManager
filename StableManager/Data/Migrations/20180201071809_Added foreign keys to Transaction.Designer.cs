@@ -146,7 +146,7 @@ namespace StableManager.Data.Migrations
 
                     b.Property<string>("DietDetails");
 
-                    b.Property<string>("HealthConcerns");
+                    b.Property<string>("Notes");
 
                     b.Property<DateTime>("ModifiedOn");
 

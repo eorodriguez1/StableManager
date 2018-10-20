@@ -76,17 +76,17 @@ namespace StableManager.Controllers
                 MyAnimaslVM.Breed = animal.Breed;
                 MyAnimaslVM.DietDetails = animal.DietDetails;
                 MyAnimaslVM.Gender = animal.Gender;
-                MyAnimaslVM.HealthConcerns = animal.HealthConcerns;
+                MyAnimaslVM.Notes = animal.Notes;
 
                 //get the list of health updates for each animal
-                var HealthUpdates = await _context.AnimalUpdates.Where(hu => hu.AnimalID == animal.AnimalID).OrderByDescending(hu => hu.DateOccured).ToListAsync();
+                var Notes = await _context.AnimalUpdates.Where(hu => hu.AnimalID == animal.AnimalID).OrderByDescending(hu => hu.DateOccured).ToListAsync();
 
                 //if updates are found, update the VM
-                if (HealthUpdates.Count > 0)
+                if (Notes.Count > 0)
                 {
-                    MyAnimaslVM.UpdatesToDate = HealthUpdates.Count();
-                    MyAnimaslVM.UpdatedOccuredOn = HealthUpdates.FirstOrDefault().DateOccured;
-                    MyAnimaslVM.LatestUpdate = HealthUpdates.FirstOrDefault().Description;
+                    MyAnimaslVM.UpdatesToDate = Notes.Count();
+                    MyAnimaslVM.UpdatedOccuredOn = Notes.FirstOrDefault().DateOccured;
+                    MyAnimaslVM.LatestUpdate = Notes.FirstOrDefault().Description;
                 }
 
                 //Add animalVM to the list of owned animals
@@ -163,7 +163,7 @@ namespace StableManager.Controllers
                 return NotFound();
             }
 
-            //returns a list of health updates for an specific animal. If empty, returns nothing
+            //returns a list of updates for an specific animal. If empty, returns nothing
             var Updates = await _context.AnimalUpdates.Where(a => a.AnimalID.Equals(id)).OrderByDescending(u => u.DateOccured).ToListAsync();
 
             //this sets up the Animal View Model that can be seen by any user.
@@ -176,7 +176,7 @@ namespace StableManager.Controllers
             MyAnimalVM.DietDetails = animal.DietDetails;
             MyAnimalVM.ModifiedOn = animal.ModifiedOn;
             MyAnimalVM.ModifierUserID = animal.ModifierUserID;
-            MyAnimalVM.HealthConcerns = animal.HealthConcerns;
+            MyAnimalVM.Notes = animal.Notes;
             MyAnimalVM.AnimalUpdates = Updates;
             MyAnimalVM.AnimalType = animal.AnimalType;
             MyAnimalVM.IsActive = animal.IsActive;
@@ -230,7 +230,7 @@ namespace StableManager.Controllers
                 return NotFound();
             }
 
-            //returns a list of health updates for an specific animal. If empty, returns nothing
+            //returns a list of updates for an specific animal. If empty, returns nothing
             var Updates = await _context.AnimalUpdates.Where(a => a.AnimalID.Equals(id)).OrderByDescending(u => u.DateOccured).ToListAsync();
 
             //this sets up the Animal View Model that can be seen by any user.
@@ -243,7 +243,7 @@ namespace StableManager.Controllers
             MyAnimalVM.DietDetails = animal.DietDetails;
             MyAnimalVM.ModifiedOn = animal.ModifiedOn;
             MyAnimalVM.ModifierUserID = animal.ModifierUserID;
-            MyAnimalVM.HealthConcerns = animal.HealthConcerns;
+            MyAnimalVM.Notes = animal.Notes;
             MyAnimalVM.AnimalUpdates = Updates;
             MyAnimalVM.AnimalType = animal.AnimalType;
             MyAnimalVM.IsActive = animal.IsActive;
@@ -301,7 +301,7 @@ namespace StableManager.Controllers
                     //update animal field with user's changes
                     animal.DietDetails = animalVM.DietDetails;
                     animal.SpecialDiet = animalVM.SpecialDiet;
-                    animal.HealthConcerns = animalVM.HealthConcerns;
+                    animal.Notes = animalVM.Notes;
 
                     //update the modified by and modified on fields
                     var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
@@ -355,7 +355,7 @@ namespace StableManager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "RequireAdministratorRole")]
-        public async Task<IActionResult> Create([Bind("AnimalID,AnimalNumber,AnimalName,Breed,Gender,Age,AnimalType,HealthConcerns,SpecialDiet,DietDetails,AnimalOwnerID,ModifiedOn,ModifierUserID")] Animal animal)
+        public async Task<IActionResult> Create([Bind("AnimalID,AnimalNumber,AnimalName,Breed,Gender,Age,AnimalType,Notes,SpecialDiet,DietDetails,AnimalOwnerID,ModifiedOn,ModifierUserID")] Animal animal)
         {
             //if animal model is valid, try to create the animal in the system
             if (ModelState.IsValid)
@@ -408,7 +408,7 @@ namespace StableManager.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "RequireAdministratorRole")]
-        public async Task<IActionResult> Edit(string id, [Bind("AnimalID,AnimalNumber,AnimalName,Breed,Gender,Age,AnimalType,HealthConcerns,SpecialDiet,DietDetails,AnimalOwnerID,ModifiedOn,ModifierUserID,IsActive")] Animal animal)
+        public async Task<IActionResult> Edit(string id, [Bind("AnimalID,AnimalNumber,AnimalName,Breed,Gender,Age,AnimalType,Notes,SpecialDiet,DietDetails,AnimalOwnerID,ModifiedOn,ModifierUserID,IsActive")] Animal animal)
         {
             //if the model id and the passed in id do not match, return not found
             if (id != animal.AnimalID)

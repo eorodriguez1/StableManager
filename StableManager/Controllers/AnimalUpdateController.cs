@@ -136,7 +136,7 @@ namespace StableManager.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NewUpdate(string id, [Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
+        public async Task<IActionResult> NewUpdate(string id, [Bind("AnimalUpdatesID,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             //if the id does not match the animal id passed in
             if (id != AnimalUpdates.AnimalID)
@@ -180,7 +180,7 @@ namespace StableManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
+        public async Task<IActionResult> Create([Bind("AnimalUpdatesID,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             if (ModelState.IsValid)
             {
@@ -234,7 +234,7 @@ namespace StableManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(string id, [Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
+        public async Task<IActionResult> Update(string id, [Bind("AnimalUpdatesID,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             //if the id passed in and the model id do not match, return not found
             if (id != AnimalUpdates.AnimalUpdatesID)
@@ -313,7 +313,7 @@ namespace StableManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("AnimalUpdatesID,Name,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
+        public async Task<IActionResult> Edit(string id, [Bind("AnimalUpdatesID,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             //if the id passed in and the model id do not match, return not found
             if (id != AnimalUpdates.AnimalUpdatesID)

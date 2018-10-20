@@ -261,7 +261,7 @@ namespace StableManager.Data.Migrations
                     AnimalTypeID = table.Column<string>(nullable: true),
                     Breed = table.Column<string>(nullable: true),
                     DietDetails = table.Column<string>(nullable: true),
-                    HealthConcerns = table.Column<string>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
                     SpecialDiet = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

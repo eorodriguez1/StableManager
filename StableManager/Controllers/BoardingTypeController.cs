@@ -57,7 +57,7 @@ namespace StableManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BoardingTypeID,BoardingTypeName,BoardingTypeNameShort,BoardingTypeDescription,BoardingPrice,UserDefined1,UserDefined2")] BoardingType boardingType)
+        public async Task<IActionResult> Create([Bind("BoardingTypeID,BoardingTypeName,BoardingTypeDescription,BoardingPrice,UserDefined1,UserDefined2")] BoardingType boardingType)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace StableManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("BoardingTypeID,BoardingTypeName,BoardingTypeNameShort,BoardingTypeDescription,BoardingPrice,UserDefined1,UserDefined2")] BoardingType boardingType)
+        public async Task<IActionResult> Edit(string id, [Bind("BoardingTypeID,BoardingTypeName,BoardingTypeDescription,BoardingPrice,UserDefined1,UserDefined2")] BoardingType boardingType)
         {
             if (id != boardingType.BoardingTypeID)
             {

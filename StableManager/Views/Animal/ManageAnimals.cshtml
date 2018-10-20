@@ -17,15 +17,10 @@
                 @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnimalOwner)
-            <th>
                 @Html.DisplayNameFor(model => model.AnimalName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HealthConcerns)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SpecialDiet)
@@ -33,34 +28,40 @@
             <th>
                 @Html.DisplayNameFor(model => model.DietDetails)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnimalOwner)
+            <th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.IsActive)</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.AnimalOwner.FullName)</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.AnimalName)</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.Gender)</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.HealthConcerns)</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.SpecialDiet)</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.DietDetails)</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <a class="user-list-checkbox" asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.IsActive)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.AnimalName)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.Gender)</a>
+            </td>
+            <td>
+                <a class="user-list-checkbox" asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.SpecialDiet)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.DietDetails)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.Notes)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.AnimalID">@Html.DisplayFor(modelItem => item.AnimalOwner.FullName)</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -150,13 +150,13 @@ namespace StableManager.Data.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<string>("HealthConcerns");
-
                     b.Property<bool>("IsActive");
 
                     b.Property<DateTime>("ModifiedOn");
 
                     b.Property<string>("ModifierUserID");
+
+                    b.Property<string>("Notes");
 
                     b.Property<bool>("SpecialDiet");
 
@@ -207,8 +207,6 @@ namespace StableManager.Data.Migrations
                     b.Property<DateTime>("ModifiedOn");
 
                     b.Property<string>("ModifierUserID");
-
-                    b.Property<string>("Name");
 
                     b.Property<string>("UserBy");
 
@@ -408,8 +406,6 @@ namespace StableManager.Data.Migrations
                     b.Property<string>("BoardingTypeDescription");
 
                     b.Property<string>("BoardingTypeName");
-
-                    b.Property<string>("BoardingTypeNameShort");
 
                     b.Property<DateTime>("ModifiedOn");
 

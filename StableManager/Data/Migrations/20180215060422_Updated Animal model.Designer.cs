@@ -149,7 +149,7 @@ namespace StableManager.Data.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<string>("HealthConcerns");
+                    b.Property<string>("Notes");
 
                     b.Property<bool>("IsActive");
 

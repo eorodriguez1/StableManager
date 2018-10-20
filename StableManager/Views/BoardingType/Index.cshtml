@@ -17,9 +17,6 @@
                 @Html.DisplayNameFor(model => model.BoardingTypeName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BoardingTypeNameShort)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.BoardingTypeDescription)
             </th>
             <th>
@@ -33,9 +30,6 @@
             <tr>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.BoardingTypeID">@Html.DisplayFor(modelItem => item.BoardingTypeName)</a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.BoardingTypeID">@Html.DisplayFor(modelItem => item.BoardingTypeNameShort)</a>
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.BoardingTypeID">@Html.DisplayFor(modelItem => item.BoardingTypeDescription)</a>
