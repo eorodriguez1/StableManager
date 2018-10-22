@@ -35,7 +35,8 @@
                     <a asp-action="Details" asp-route-id="@item.BoardingTypeID">@Html.DisplayFor(modelItem => item.BoardingTypeDescription)</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.BoardingTypeID">@Html.DisplayFor(modelItem => item.BoardingPrice)</a>
+                    <a asp-action="Details" asp-route-id="@item.BoardingTypeID">$ @item.BoardingPrice.ToString("0.00")</a>
+                    
                 </td>
             </tr>
         }

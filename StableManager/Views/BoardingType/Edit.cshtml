@@ -33,7 +33,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label asp-for="BoardingPrice" class="control-label"></label>
-                    <input asp-for="BoardingPrice" class="form-control" />
+                    <input asp-for="BoardingPrice" value="@Model.BoardingPrice.ToString("0.00")" class="form-control" />
                     <span asp-validation-for="BoardingPrice" class="text-danger"></span>
                 </div>
             </div>

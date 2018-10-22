@@ -26,6 +26,7 @@ namespace StableManager.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.BoardingType.ToListAsync());
+            
         }
 
         // GET: BoardingType/Details/5

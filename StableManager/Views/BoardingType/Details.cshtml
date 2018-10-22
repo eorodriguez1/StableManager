@@ -30,7 +30,7 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
                 <label asp-for="BoardingPrice" class="control-label"></label>
-                <input disabled="" asp-for="BoardingPrice" class="form-control" />
+                <input type="text" disabled="" asp-for="BoardingPrice" class="form-control" value="@Model.BoardingPrice.ToString("0.00")" />  
             </div>
         </div>
     </div>
