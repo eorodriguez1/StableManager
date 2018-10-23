@@ -93,7 +93,19 @@ namespace StableManager.Controllers
         [Authorize(Policy = "RequireAdministratorRole")]
         public IActionResult Create()
         {
-            ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "FullName");
+            //get a data context for each data set of users and clients
+            var UserList = _context.ApplicationUser.Where(au => au.IsClient == true).ToList();
+            var ClientList = _context.Clients.ToList();
+
+            //for each client in ClientList, remove the user from the UserList.
+            foreach(Client cx in ClientList)
+            {
+                var CurrentUser = _context.ApplicationUser.FirstOrDefault(au => au.Id == cx.UserID);
+                UserList.Remove(CurrentUser);
+            }
+
+            //return the list of users which are not already clients.
+            ViewData["UserID"] = new SelectList(UserList, "Id", "FullName");
             return View();
         }
 
@@ -111,7 +123,7 @@ namespace StableManager.Controllers
             if (ModelState.IsValid)
             {
                 //set the modified by and modified on fields
-                var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+                var CurrentUser = await _context.ApplicationUser.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
                 client.ModifierUserID = CurrentUser.FirstName + " " + CurrentUser.LastName;
                 client.ModifiedOn = DateTime.Now;
 
@@ -123,7 +135,20 @@ namespace StableManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", client.UserID);
+
+            //get a data context for each data set of users and clients
+            var UserList = _context.ApplicationUser.Where(au => au.IsClient == true).ToList();
+            var ClientList = _context.Clients.ToList();
+
+            //for each client in ClientList, remove the user from the UserList.
+            foreach (Client cx in ClientList)
+            {
+                var CurrentUser = _context.ApplicationUser.FirstOrDefault(au => au.Id == cx.UserID);
+                UserList.Remove(CurrentUser);
+            }
+
+            //return the list of users which are not already clients.
+            ViewData["UserID"] = new SelectList(UserList, "Id", "FullName", client.UserID);
             return View(client);
         }
 
@@ -149,8 +174,27 @@ namespace StableManager.Controllers
                 return NotFound();
             }
 
+            //get a data context for each data set of users and clients
+            var UserList = _context.ApplicationUser.Where(au => au.IsClient == true).ToList();
+            var ClientList = _context.Clients.ToList();
+
+            //for each client in ClientList, remove the user from the UserList.
+            foreach (Client cx in ClientList)
+            {
+                //if the currently selected client is being edited, we want to keep them in the list.
+                //skip the current foreach iteration to keep current user in the list.
+                if(cx.UserID == client.UserID)
+                {
+                    continue;
+                }
+
+                //remove the client from the user list
+                var CurrentUser = _context.ApplicationUser.FirstOrDefault(au => au.Id == cx.UserID);
+                UserList.Remove(CurrentUser);
+            }
+
             //return client for edit
-            ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", client.UserID);
+            ViewData["UserID"] = new SelectList(UserList, "Id", "FullName", client.UserID);
             return View(client);
         }
 
@@ -177,7 +221,7 @@ namespace StableManager.Controllers
                 try
                 {
                     //update the modified by and modified on fields
-                    var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+                    var CurrentUser = await _context.ApplicationUser.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
                     client.ModifierUserID = CurrentUser.FirstName + " " + CurrentUser.LastName;
                     client.ModifiedOn = DateTime.Now;
 
@@ -198,7 +242,28 @@ namespace StableManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", client.UserID);
+
+            //get a data context for each data set of users and clients
+            var UserList = _context.ApplicationUser.Where(au => au.IsClient == true).ToList();
+            var ClientList = _context.Clients.ToList();
+
+            //for each client in ClientList, remove the user from the UserList.
+            foreach (Client cx in ClientList)
+            {
+                //if the currently selected client is being edited, we want to keep them in the list.
+                //skip the current foreach iteration to keep current user in the list.
+                if (cx.UserID == client.UserID)
+                {
+                    continue;
+                }
+
+                //remove the client from the user list
+                var CurrentUser = _context.ApplicationUser.FirstOrDefault(au => au.Id == cx.UserID);
+                UserList.Remove(CurrentUser);
+            }
+
+            //return the list of users which are not already clients.
+            ViewData["UserID"] = new SelectList(UserList, "Id", "FullName", client.UserID);
             return View(client);
         }
 
