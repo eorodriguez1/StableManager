@@ -45,10 +45,14 @@
                     <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.BoardingType.BoardingTypeName)</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.StartedBoard)</a>
+                    
+                    <a asp-action="Details" asp-route-id="@item.BoardingID">@item.StartedBoard.ToLongDateString()</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.BoardingID">@Html.DisplayFor(modelItem => item.EndedBoard)</a>
+                    @if (item.EndedBoard != null)
+                    {
+                        <a asp-action="Details" asp-route-id="@item.BoardingID">@item.EndedBoard.Value.ToLongDateString()</a>
+                    }
                 </td>
             </tr>
         }

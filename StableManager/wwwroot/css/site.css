@@ -109,3 +109,7 @@
 .user-list-checkbox{
     padding-left:15px;
 }
+
+.date-selection-correction {
+    line-height: normal !important;
+}

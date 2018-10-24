@@ -57,7 +57,7 @@ namespace StableManager.Models
         [Display(Name = "Started On")]
         public DateTime StartedBoard { get; set; }
         [Display(Name = "Ended On")]
-        public DateTime EndedBoard { get; set; }
+        public DateTime? EndedBoard { get; set; }
         
 
         //get boarding type

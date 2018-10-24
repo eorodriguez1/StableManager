@@ -79,6 +79,7 @@ namespace StableManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BoardingID,AnimalID,BillToUserID,BoardingTypeID,StartedBoard,EndedBoard")] Boarding boarding)
         {
+            
             if (ModelState.IsValid)
             {
                 //add the require modified when/by stamps

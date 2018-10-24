@@ -39,16 +39,14 @@
 
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label asp-for="StartedBoard" class="control-label"></label>
-                    <input asp-for="StartedBoard" class="form-control" />
-                    <span asp-validation-for="StartedBoard" class="text-danger"></span>
+                    <label asp-for="StartedBoard" class="control-label"> Started On</label> <br />  (MM/DD/YYYY)
+                    <input type="date" asp-for="StartedBoard" class="form-control date-selection-correction" />
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
-                    <label asp-for="EndedBoard" class="control-label"></label> (Leave blank if ongoing)
-                    <input asp-for="EndedBoard" class="form-control" />
-                    <span asp-validation-for="EndedBoard" class="text-danger"></span>
+                    <label asp-for="EndedBoard" class="control-label">Ended On</label> (Leave Blank for ongoing) <br /> (MM/DD/YYYY)
+                    <input type="date" asp-for="EndedBoard" class="form-control date-selection-correction" />
                 </div>
             </div>
         </div>
