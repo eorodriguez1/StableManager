@@ -24,7 +24,11 @@ namespace StableManager.Models.TransactionViewModels
         public double TransactionCount { get; set; }
 
 
-
+        /// <summary>
+        /// Used to generate a summary of all transactions of a single user
+        /// </summary>
+        /// <param name="userName">name of user</param>
+        /// <param name="transactions">list of transactions</param>
         public UserTransactionsViewModel(string userName, List<Transaction> transactions)
         {
             UserCharged = userName;
@@ -35,6 +39,11 @@ namespace StableManager.Models.TransactionViewModels
 
         }
 
+
+        /// <summary>
+        /// Used to generate a sumary of a user with no transactions
+        /// </summary>
+        /// <param name="user"></param>
         public UserTransactionsViewModel(ApplicationUser user)
         {
             UserCharged = user.FullName;

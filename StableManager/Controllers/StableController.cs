@@ -23,18 +23,30 @@ namespace StableManager.Controllers
             _context = context;
         }
 
-        // GET: Stable
+        /// <summary>
+        /// Index for stable actions
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
+            //Redirect to "Details" as only 1 object will be found in DB
             return RedirectToAction("Details");
         }
 
+        /// <summary>
+        /// Displays the stable information
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Details()
         {
+            //get the first and only stable entry in db
             var id =  _context.StableDetails.FirstOrDefault().StableDetailsID;
 
+            //try and find the stable
             var stableDetails = await _context.StableDetails
                 .SingleOrDefaultAsync(m => m.StableDetailsID == id);
+
+            //if not found, return not found
             if (stableDetails == null)
             {
                 return NotFound();
@@ -44,15 +56,23 @@ namespace StableManager.Controllers
         }
 
 
-        // GET: Stable/Edit/5
+        /// <summary>
+        /// Edit Stable details
+        /// </summary>
+        /// <param name="id">ID for stable</param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(string id)
         {
+            //if id is not specified, return not found
             if (id == null)
             {
                 return NotFound();
             }
 
+            //try and find the stable
             var stableDetails = await _context.StableDetails.SingleOrDefaultAsync(m => m.StableDetailsID == id);
+
+            //if not found, return not found
             if (stableDetails == null)
             {
                 return NotFound();
@@ -60,13 +80,17 @@ namespace StableManager.Controllers
             return View(stableDetails);
         }
 
-        // POST: Stable/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Edit stable details
+        /// </summary>
+        /// <param name="id">ID for stable</param>
+        /// <param name="stableDetails">Stable detail object to save</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("StableDetailsID,StableName,StableCountry,StableProvState,StableCity,StablePostalCode,StableAddress,ContactName,StableEmail,StablePhone,TaxNumber,ModifiedOn,ModifierUserID")] StableDetails stableDetails)
         {
+            //if id and stableDetail object's id is not the same, return not found
             if (id != stableDetails.StableDetailsID)
             {
                 return NotFound();

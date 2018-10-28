@@ -53,7 +53,7 @@ namespace StableManager.Controllers
         }
 
         /// <summary>
-        /// this will list the personal list of animals
+        /// this will list the personal list of animals through the "My Animals" section
         /// </summary>
         /// <returns></returns>
         public async Task<IActionResult> MyAnimals()
@@ -209,7 +209,7 @@ namespace StableManager.Controllers
 
 
         /// <summary>
-        /// Action that returns the details of an individual's animal
+        /// Action that returns the details of an individual's animal (done through "My Animal" Section)
         /// </summary>
         /// <param name="id">id of animal</param>
         /// <returns></returns>
@@ -276,7 +276,7 @@ namespace StableManager.Controllers
 
 
         /// <summary>
-        /// Saves the updated animal VM based on a normal user's changes.
+        /// Saves the updated animal VM based on a normal user's changes. Done through "My Animal Section"
         /// </summary>
         /// <param name="id">id of animal</param>
         /// <param name="animalVM">Animal VM currently being updated</param>
@@ -335,7 +335,7 @@ namespace StableManager.Controllers
 
 
         /// <summary>
-        /// Create an animal in the system
+        /// Create an animal in the system through Admin menu
         /// </summary>
         /// <returns></returns>
         [Authorize(Policy = "RequireAdministratorRole")]
@@ -348,7 +348,7 @@ namespace StableManager.Controllers
         }
 
         /// <summary>
-        /// Posting action for creating a new animal
+        /// Posting action for creating a new animal through admin menu
         /// </summary>
         /// <param name="animal">animal model that is being passed in</param>
         /// <returns></returns>
@@ -381,6 +381,11 @@ namespace StableManager.Controllers
             return View(animal);
         }
 
+        /// <summary>
+        /// Edit an animal through Admin options
+        /// </summary>
+        /// <param name="id">ID of animal to update</param>
+        /// <returns></returns>
         [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Edit(string id)
         {

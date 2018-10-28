@@ -23,47 +23,70 @@ namespace StableManager.Controllers
             _context = context;
         }
 
-        // GET: Transaction
+        /// <summary>
+        /// Redirect to correct menu
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
+            //Send user to "Manage Transactions by User" section
             return RedirectToAction(nameof(ManageByUser));
         }
 
-        // GET: Transaction
+        /// <summary>
+        /// Section that allows a user to manage current transactions (For the current month)
+        /// </summary>
         public async Task<IActionResult> ManageCurrent()
         {
             var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Where(u => u.TransactionMadeOn.Value.Year == DateTime.Now.Year && u.TransactionMadeOn.Value.Month == DateTime.Now.Month).OrderByDescending(t => t.TransactionMadeOn);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Transaction
+        /// <summary>
+        ///Section that allows users to manage all transactions
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> ManageTransactions()
         {
             var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).OrderByDescending(t => t.TransactionMadeOn);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Transaction
+        /// <summary>
+        /// Section that provides the user with an overview/summary of all transactions per user (1 line per user)
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> ManageByUser()
         {
+
+            //get a list of all users in the system
             var TransactionUsers = _context.Users.Select(u => u.FullName).Distinct().ToListAsync();
+
+            //uses a ViewModel to capture key information of all users
             var TransactionSummaries = new List<UserTransactionsViewModel>();
+
+            //used to capture key information for individual users
             var TransactionSummary = new UserTransactionsViewModel(await _context.ApplicationUser.FirstOrDefaultAsync());
 
+            //for each user in the system
             foreach (string name in await TransactionUsers)
             {
+                //try to generate summary information for a user including transaction totals
                 try
                 {
                     TransactionSummary = new UserTransactionsViewModel(name, _context.Transactions.Include(t => t.UserCharged).Where(u => u.UserCharged.FullName.Equals(name)).OrderByDescending(t => t.TransactionMadeOn).ToList());
 
                 }
+                //if the user does not have any transactions recorded, then produce a summary with 0 totals
                 catch
                 {
                     TransactionSummary = new UserTransactionsViewModel(await _context.ApplicationUser.FirstOrDefaultAsync(u => u.FullName.Equals(name)));
                 }
+                //add the transaction summary to the list of summaries
                 TransactionSummaries.Add(TransactionSummary);
 
             }
+            //return all summaries
             return View(TransactionSummaries);
         }
 
@@ -75,13 +98,16 @@ namespace StableManager.Controllers
                 return NotFound();
             }
 
-            if (await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id) == null)
+            var CurrentUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            
+            if (CurrentUser == null)
             {
                 return NotFound();
             }
 
             var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Where(u => u.UserChargedID.Equals(id)).OrderByDescending(t => t.TransactionMadeOn);
             ViewData["BillToID"] = id;
+            ViewData["BillToName"] = CurrentUser.FullName;
             return View(await applicationDbContext.ToListAsync());
 
         }

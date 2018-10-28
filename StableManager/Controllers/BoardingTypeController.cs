@@ -22,23 +22,34 @@ namespace StableManager.Controllers
             _context = context;
         }
 
-        // GET: BoardingType
+        /// <summary>
+        /// Returns the index/manage page
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             return View(await _context.BoardingType.ToListAsync());
             
         }
 
-        // GET: BoardingType/Details/5
+        /// <summary>
+        /// Details for a specific Boarding Type
+        /// </summary>
+        /// <param name="id">ID for boarding type</param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(string id)
         {
+            //if id is not provided, return not found
             if (id == null)
             {
                 return NotFound();
             }
 
+            //try to get boarding type
             var boardingType = await _context.BoardingType
                 .SingleOrDefaultAsync(m => m.BoardingTypeID == id);
+
+            //if not found, return not found
             if (boardingType == null)
             {
                 return NotFound();
@@ -47,15 +58,20 @@ namespace StableManager.Controllers
             return View(boardingType);
         }
 
-        // GET: BoardingType/Create
+        /// <summary>
+        /// Create a new boarding  type
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: BoardingType/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Create a new boarding type
+        /// </summary>
+        /// <param name="boardingType">Boarding type to create</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BoardingTypeID,BoardingTypeName,BoardingTypeDescription,BoardingPrice,UserDefined1,UserDefined2")] BoardingType boardingType)
@@ -72,15 +88,22 @@ namespace StableManager.Controllers
             return View(boardingType);
         }
 
-        // GET: BoardingType/Edit/5
+        /// <summary>
+        /// Edit existing boarding type
+        /// </summary>
+        /// <param name="id">ID of boarding type to edit</param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(string id)
         {
+            //if id is not specified, return not found
             if (id == null)
             {
                 return NotFound();
             }
 
+            //try to find boarding type
             var boardingType = await _context.BoardingType.SingleOrDefaultAsync(m => m.BoardingTypeID == id);
+            //if boarding type is not found, return not found
             if (boardingType == null)
             {
                 return NotFound();
@@ -88,13 +111,17 @@ namespace StableManager.Controllers
             return View(boardingType);
         }
 
-        // POST: BoardingType/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Edit an existing boarding type
+        /// </summary>
+        /// <param name="id">ID of boarding type to edit</param>
+        /// <param name="boardingType">Boarding Type Object to edit</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("BoardingTypeID,BoardingTypeName,BoardingTypeDescription,BoardingPrice,UserDefined1,UserDefined2")] BoardingType boardingType)
         {
+            //if id does not match boarding type object's id, return not found
             if (id != boardingType.BoardingTypeID)
             {
                 return NotFound();

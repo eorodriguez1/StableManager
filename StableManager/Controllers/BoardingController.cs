@@ -64,7 +64,10 @@ namespace StableManager.Controllers
             return View(boarding);
         }
 
-        //create a boarding
+        /// <summary>
+        /// Create a new boarding
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName");
@@ -73,8 +76,11 @@ namespace StableManager.Controllers
             return View();
         }
 
-        // POST: Boarding/Create
-        //Saving a boarding
+        /// <summary>
+        /// Create a new boarding
+        /// </summary>
+        /// <param name="boarding">Boarding oject to create</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BoardingID,AnimalID,BillToUserID,BoardingTypeID,StartedBoard,EndedBoard")] Boarding boarding)

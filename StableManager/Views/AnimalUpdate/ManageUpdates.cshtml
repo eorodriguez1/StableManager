@@ -39,7 +39,7 @@
                     <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.Description)</a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.DateOccured)</a>
+                    <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@item.DateOccured.ToLongDateString()</a>
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.AnimalUpdatesID">@Html.DisplayFor(modelItem => item.UserBy)</a>

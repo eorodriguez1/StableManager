@@ -124,7 +124,7 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DateOccured)
+                                @item.DateOccured.ToLongDateString()
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.UserBy)

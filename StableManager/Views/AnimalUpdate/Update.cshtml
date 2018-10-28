@@ -1,7 +1,7 @@
 ﻿@model StableManager.Models.AnimalUpdates
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Update";
     Layout = "~/Views/Shared/_MenuLayout.cshtml";
 
 }
@@ -37,8 +37,8 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <div class="form-group">
-                    <label asp-for="DateOccured" class="control-label"></label>
-                    <input asp-for="DateOccured" class="form-control" />
+                    <label asp-for="DateOccured" class="control-label"></label> (MM/DD/YYYY)
+                    <input type="date" asp-for="DateOccured" class="form-control  date-selection-correction" />
                     <span asp-validation-for="DateOccured" class="text-danger"></span>
                 </div>
             </div>

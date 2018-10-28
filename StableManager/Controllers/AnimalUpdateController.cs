@@ -67,6 +67,7 @@ namespace StableManager.Controllers
         /// </summary>
         /// <param name="id">database id for the update</param>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Details(string id)
         {
 
@@ -93,7 +94,7 @@ namespace StableManager.Controllers
 
 
         /// <summary>
-        /// An action required to create a new update. 
+        /// An action required to create a new update from "My animal" section
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -129,7 +130,7 @@ namespace StableManager.Controllers
         }
 
         /// <summary>
-        /// The posting action of the new Update. 
+        /// The posting action of the new Update. (From "My Animal" section).
         /// </summary>
         /// <param name="id">animal id</param>
         /// <param name="AnimalUpdates">animal update created in previous page</param>
@@ -167,7 +168,11 @@ namespace StableManager.Controllers
         }
 
 
-        // GET: AnimalUpdate/Create
+        /// <summary>
+        /// Creates a new update. From Admin options
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public IActionResult Create()
         {
 
@@ -175,11 +180,14 @@ namespace StableManager.Controllers
             return View();
         }
 
-        // POST: AnimalUpdate/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Creates a new update (From Admin Options)
+        /// </summary>
+        /// <param name="AnimalUpdates"> Animal Updates object to save</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Create([Bind("AnimalUpdatesID,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
         {
             if (ModelState.IsValid)
@@ -198,7 +206,11 @@ namespace StableManager.Controllers
         }
 
 
-        // GET: AnimalUpdate/Edit/5
+        /// <summary>
+        /// Update an animal update (Done by admin + animal owner through "My Animal" section)
+        /// </summary>
+        /// <param name="id">ID of update</param>
+        /// <returns></returns>
         public async Task<IActionResult> Update(string id)
         {
             //if the id is null, return not found
@@ -229,9 +241,12 @@ namespace StableManager.Controllers
             return View(AnimalUpdates);
         }
 
-        // POST: AnimalUpdate/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Update of an animal update. (Done by admin + animal owner through "My Animal Section")
+        /// </summary>
+        /// <param name="id">ID of update</param>
+        /// <param name="AnimalUpdates">Animal Update object to update</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(string id, [Bind("AnimalUpdatesID,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
@@ -287,7 +302,12 @@ namespace StableManager.Controllers
         }
 
 
-        // GET: AnimalUpdate/Edit/5
+        /// <summary>
+        /// Edit an animal Update (From Admin Menu)
+        /// </summary>
+        /// <param name="id">Id of update</param>
+        /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Edit(string id)
         {
             //if the id is null, return not found
@@ -308,9 +328,13 @@ namespace StableManager.Controllers
         }
 
 
-        // POST: AnimalUpdate/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// (Done by admin + animal owner)
+        /// </summary>
+        /// <param name="id">ID for the animal update</param>
+        /// <param name="AnimalUpdates">Animal update object to save</param>
+        /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("AnimalUpdatesID,Description,DateOccured,AnimalID,UserBy,ModifiedOn,ModifierUserID")] AnimalUpdates AnimalUpdates)
@@ -357,7 +381,11 @@ namespace StableManager.Controllers
         }
 
 
-        // GET: AnimalUpdate/Delete/5
+        /// <summary>
+        /// Delete an update from "My Animal" section
+        /// </summary>
+        /// <param name="id">ID for animal update</param>
+        /// <returns></returns>
         public async Task<IActionResult> DeleteUpdate(string id)
         {
             if (id == null)
@@ -388,7 +416,11 @@ namespace StableManager.Controllers
             return View(AnimalUpdates);
         }
 
-        // POST: AnimalUpdate/Delete/5
+        /// <summary>
+        /// Delete an update from "My Animal" section
+        /// </summary>
+        /// <param name="id">ID for animal update</param>
+        /// <returns></returns>
         [HttpPost, ActionName("DeleteUpdate")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)

@@ -22,44 +22,61 @@ namespace StableManager.Controllers
             _context = context;
         }
 
-        // GET: TransactionType
+        /// <summary>
+        /// Index for all transaction type actions
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             return View(await _context.TransactionType.ToListAsync());
         }
 
-        // GET: TransactionType/Details/5
+        /// <summary>
+        /// Get the details of a specific transaction type
+        /// </summary>
+        /// <param name="id">id for transaction type</param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(string id)
         {
+            //if id is not specified, return not found
             if (id == null)
             {
                 return NotFound();
             }
 
+            //try and find the transaction type
             var transactionType = await _context.TransactionType
                 .SingleOrDefaultAsync(m => m.TransactionTypeID == id);
+            //if transaction type is not found, return not found
             if (transactionType == null)
             {
                 return NotFound();
             }
 
+            //enum of possible types of transaction methods
             var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString() };
             ViewData["Types"] = new SelectList(EnumList);
 
             return View(transactionType);
         }
 
-        // GET: TransactionType/Create
+        /// <summary>
+        /// Create a new transaction type
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
+            //enum of possible types of transaction methods
             var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString()};
             ViewData["Types"] = new SelectList(EnumList);
             return View();
         }
 
-        // POST: TransactionType/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Create a new transaction type
+        /// </summary>
+        /// <param name="transactionType">Transaction type object to create</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TransactionTypeID,TransactionTypeName,TransactionDescription,Type,ModifiedOn,ModifierUserID")] TransactionType transactionType)
@@ -73,34 +90,49 @@ namespace StableManager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(transactionType);
-        }
-
-        // GET: TransactionType/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transactionType = await _context.TransactionType.SingleOrDefaultAsync(m => m.TransactionTypeID == id);
-            if (transactionType == null)
-            {
-                return NotFound();
-            }
+            //enum of possible types of transaction methods
             var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString() };
             ViewData["Types"] = new SelectList(EnumList);
             return View(transactionType);
         }
 
-        // POST: TransactionType/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Edit a specific transaction type
+        /// </summary>
+        /// <param name="id">id of transaction to edit</param>
+        /// <returns></returns>
+        public async Task<IActionResult> Edit(string id)
+        {
+            //if id is not specfied, return not found
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //try and find transaction type
+            var transactionType = await _context.TransactionType.SingleOrDefaultAsync(m => m.TransactionTypeID == id);
+            //if tranaction is not found, return not found
+            if (transactionType == null)
+            {
+                return NotFound();
+            }
+            //enum of possible types of transaction methods
+            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString() };
+            ViewData["Types"] = new SelectList(EnumList);
+            return View(transactionType);
+        }
+
+        /// <summary>
+        /// Edit a specific Transaction Type
+        /// </summary>
+        /// <param name="id">id of transaction to edit</param>
+        /// <param name="transactionType">Transaction type object to edit</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("TransactionTypeID,TransactionTypeName,TransactionDescription,Type,ModifiedOn,ModifierUserID")] TransactionType transactionType)
         {
+            //if id and transaction type object's id do not match, return not found
             if (id != transactionType.TransactionTypeID)
             {
                 return NotFound();
@@ -129,6 +161,10 @@ namespace StableManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            //enum of possible types of transaction methods
+            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString() };
+            ViewData["Types"] = new SelectList(EnumList);
             return View(transactionType);
         }
 

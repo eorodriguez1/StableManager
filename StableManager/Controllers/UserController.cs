@@ -409,13 +409,25 @@ namespace StableManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #region  Helper Methods
+        /// <summary>
+        /// Helper method to see if the user exists
+        /// NOT USED
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool ApplicationUserExists(string id)
         {
             return _context.ApplicationUser.Any(e => e.Id == id);
         }
 
 
-
+        /// <summary>
+        /// Redirect user to local
+        /// NOT USED
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -428,6 +440,10 @@ namespace StableManager.Controllers
             }
         }
 
+        /// <summary>
+        /// Add errors. Used in case of errors when registering users
+        /// </summary>
+        /// <param name="result"></param>
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -435,5 +451,6 @@ namespace StableManager.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
         }
+        #endregion
     }
 }

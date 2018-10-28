@@ -15,17 +15,17 @@
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                 <div class="form-group">
                     <label asp-for="TransactionNumber" class="control-label"></label>
-                    <input asp-for="TransactionNumber" class="form-control" />
+                    <input disabled="" asp-for="TransactionNumber" class="form-control" />
                     <span asp-validation-for="TransactionNumber" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <div class="form-group">
-                    <label asp-for="TransactionMadeOn" class="control-label"></label>
-                    <input asp-for="TransactionMadeOn" class="form-control" />
+                    <label asp-for="TransactionMadeOn" class="control-label">Date</label> (MM/DD/YYYY)
+                    <input disabled="" type="date" asp-for="TransactionMadeOn" class="form-control date-selection-correction" />
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="form-group">
                     <label asp-for="TransactionTypeID" class="control-label"></label>
                     <select asp-for="TransactionTypeID" class="form-control" asp-items="ViewBag.TransactionTypeID"></select>
