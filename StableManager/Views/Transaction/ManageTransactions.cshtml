@@ -55,7 +55,7 @@
                 <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionType.TransactionTypeName)</a>
             </td>
             <td class="@( item.TransactionValue < 0 ? "Negative-Value" : "")">
-                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionValue)</a>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">$@item.TransactionValue.ToString("0.00")</a>
                 @{RunningTotal += item.TransactionValue;}
             </td>
             <td>

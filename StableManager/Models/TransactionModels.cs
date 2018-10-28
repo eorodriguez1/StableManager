@@ -71,6 +71,8 @@ namespace StableManager.Models
         [Display(Name = "Payment")]
         Payment,
         [Display(Name = "Receiveable")]
-        Receiveable
+        Receiveable,
+        [Display(Name = "Correction")]
+        Correction
     }
 }

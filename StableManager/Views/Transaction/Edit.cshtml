@@ -26,7 +26,7 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <div class="form-group">
                     <label asp-for="TransactionMadeOn" class="control-label"></label>
-                    <input disabled="" asp-for="TransactionMadeOn" class="form-control" />
+                    <input type="date" disabled ="" asp-for="TransactionMadeOn" class="form-control date-selection-correction" />
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -48,7 +48,7 @@
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                 <div class="form-group">
                     <label asp-for="TransactionValue" class="control-label"></label>
-                    <input asp-for="TransactionValue" class="form-control" />
+                    <input asp-for="TransactionValue" class="form-control"  value="@Model.TransactionValue.ToString("0.00")" />
                     <span asp-validation-for="TransactionValue" class="text-danger"></span>
                 </div>
             </div>

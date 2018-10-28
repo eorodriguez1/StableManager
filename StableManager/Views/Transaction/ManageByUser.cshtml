@@ -44,7 +44,7 @@
                     <a asp-action="TransactionsByUser" asp-route-id="@item.UserChargedID">@Html.DisplayFor(modelItem => item.UserCharged)</a>
                 </td>
                 <td class="@( item.Balance < 0 ? "Negative-Value" : "")">
-                    <a asp-action="TransactionsByUser" asp-route-id="@item.UserChargedID">@Html.DisplayFor(modelItem => item.Balance)</a>
+                    <a asp-action="TransactionsByUser" asp-route-id="@item.UserChargedID">$@item.Balance.ToString("0.00")</a>
                 </td>
                 <td>
                     <a asp-action="TransactionsByUser" asp-route-id="@item.UserChargedID">@Html.DisplayFor(modelItem => item.TransactionCount)</a>

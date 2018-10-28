@@ -90,22 +90,32 @@ namespace StableManager.Controllers
             return View(TransactionSummaries);
         }
 
-        // GET: Transaction
+        /// <summary>
+        /// List of all transactions by a specific user
+        /// </summary>
+        /// <param name="id">id for user to look up</param>
+        /// <returns></returns>
         public async Task<IActionResult> TransactionsByUser(string id)
         {
+            //If user is not specified, return not found
             if (id == null)
             {
                 return NotFound();
             }
 
+            //try and find user
             var CurrentUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
             
+            //if user is not found, return not found
             if (CurrentUser == null)
             {
                 return NotFound();
             }
 
+            //return a list of all transactions
             var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Where(u => u.UserChargedID.Equals(id)).OrderByDescending(t => t.TransactionMadeOn);
+
+            //specific fields to return (for URLs or HTML)
             ViewData["BillToID"] = id;
             ViewData["BillToName"] = CurrentUser.FullName;
             return View(await applicationDbContext.ToListAsync());
@@ -113,11 +123,12 @@ namespace StableManager.Controllers
         }
 
 
-
-
-
-
-        // GET: Transaction/Create
+        //TODO!!
+        /// <summary>
+        /// Generate monthly transactions
+        /// </summary>
+        /// <param name="id">id used to specify the owner of the transactions (USER ID)</param>
+        /// <returns></returns>
         public IActionResult GenerateTransactions(string id)
         {
 
@@ -131,7 +142,13 @@ namespace StableManager.Controllers
             return View(GenerateTrans);
         }
 
-        // GET: Transaction/Create
+        //TODO!!
+        /// <summary>
+        /// Generate monthly transactions
+        /// </summary>
+        /// <param name="id">id used to specify the owner of the transactions (USER ID)</param>
+        /// <param name="model"> transaction list view model to save</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> GenerateTransactions(string id, [Bind("BilledToID,BillFrom,BillTo")] GenerateTransactionsViewModel model)
         {
@@ -175,19 +192,28 @@ namespace StableManager.Controllers
         }
 
 
-        // GET: Animal/Details/5
+        /// <summary>
+        /// View the details of a transaction
+        /// </summary>
+        /// <param name="id">ID for the transaction to loopup</param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(string id)
         {
+            //if id is not specfied, return not found
             if (id == null)
             {
                 return NotFound();
             }
 
+            //try to find transaction
             var transaction = await _context.Transactions.SingleOrDefaultAsync(m => m.TransactionID == id);
+            //If transaction is not found, return not found
             if (transaction == null)
             {
                 return NotFound();
             }
+
+            //specific data to use for UI/URLs
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName", transaction.TransactionTypeID);
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", transaction.UserChargedID);
             return View(transaction);
@@ -195,35 +221,59 @@ namespace StableManager.Controllers
 
 
 
-        // GET: Transaction/Create
+        /// <summary>
+        /// Create a new transaction
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
+            //specific data to use for UI/URLs
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName");
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName");
             return View();
         }
 
-        // POST: Transaction/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Create a new transaction
+        /// </summary>
+        /// <param name="transaction">transaction object to save</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,ModifiedOn,ModifierUserID")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
+                //get the current user for logs
                 var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-                CurrentUser.UserBalance += transaction.TransactionValue;
-                transaction.ModifierUserID = CurrentUser.FirstName + " " + CurrentUser.LastName;
+                //transaction logs
+                transaction.ModifierUserID = CurrentUser.FullName;
                 transaction.ModifiedOn = DateTime.Now;
+
+                //get the user that is being billed
+                var BilledUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == transaction.UserChargedID);
+                //get the transaction type
+                var TransType = await _context.TransactionType.FirstOrDefaultAsync(t => t.TransactionTypeID == transaction.TransactionTypeID);
+                //generate a new transaction number based on the current count of transaction and format it into a string
+                transaction.TransactionNumber = "TN" + (_context.Transactions.Count() + 1).ToString("X8");
+                //if transaction date is not specified, use todays date
                 if (transaction.TransactionMadeOn == null)
                 {
                     transaction.TransactionMadeOn = DateTime.Now;
                 }
-                _context.Add(transaction);
-                await _context.SaveChangesAsync();
+                
+                //update the balanced based on transaction type if required(Receivable = negative, else positive)
+                if (TransType.Type == DebitCredit.Receiveable)
+                {
+                    transaction.TransactionValue = transaction.TransactionValue * -1;
+                }
 
-                _context.Update(CurrentUser);
+                //update global user balance
+                BilledUser.UserBalance += transaction.TransactionValue;
+
+                //save changes
+                _context.Add(transaction);
+                _context.Update(BilledUser);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
@@ -235,31 +285,43 @@ namespace StableManager.Controllers
 
 
 
-        // GET: Transaction/Edit/5
+        /// <summary>
+        /// Edit a transaction
+        /// </summary>
+        /// <param name="id">id of transaction to edit</param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(string id)
         {
+            //if id is not specified, return not found
             if (id == null)
             {
                 return NotFound();
             }
-
+            
+            //look up transaction
             var transaction = await _context.Transactions.SingleOrDefaultAsync(m => m.TransactionID == id);
+            //if not found, return not found
             if (transaction == null)
             {
                 return NotFound();
             }
+
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName", transaction.TransactionTypeID);
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", transaction.UserChargedID);
             return View(transaction);
         }
 
-        // POST: Transaction/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Edit Transaction
+        /// </summary>
+        /// <param name="id">id of transaction to edit</param>
+        /// <param name="transaction">transaction object to save</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,ModifiedOn,ModifierUserID")] Transaction transaction)
         {
+            //if id and transaction object's id do not match, return not found
             if (id != transaction.TransactionID)
             {
                 return NotFound();
@@ -269,21 +331,32 @@ namespace StableManager.Controllers
             {
                 try
                 {
+                    //get the current user for 
                     var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-                    var BilledUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == transaction.UserChargedID);
-                    var PreviousTransactionBalance = (await _context.Transactions.FirstOrDefaultAsync(t => t.TransactionID == transaction.TransactionID)).TransactionValue;
-                    var Balance = transaction.TransactionValue - PreviousTransactionBalance;
-
+                    //update logs
                     transaction.ModifierUserID = CurrentUser.FirstName + " " + CurrentUser.LastName;
                     transaction.ModifiedOn = DateTime.Now;
+
+                    //get the user being billed
+                    var BilledUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == transaction.UserChargedID);
+                    //get the transaction type and correct balance if required.
+                    var TransType = await _context.TransactionType.FirstOrDefaultAsync(t => t.TransactionTypeID == transaction.TransactionTypeID);
+                    if (TransType.Type == DebitCredit.Receiveable)
+                    {
+                        transaction.TransactionValue = Math.Abs(transaction.TransactionValue) * -1;
+                    }
+                    //update balance and do not track temporary instance of old transaction.
+                    var PreviousTransactionBalance = (await _context.Transactions.AsNoTracking().FirstOrDefaultAsync(t => t.TransactionID == transaction.TransactionID)).TransactionValue;
+                    var Balance = transaction.TransactionValue - PreviousTransactionBalance;
+                    //update transaction date if required
                     if (transaction.TransactionMadeOn == null)
                     {
                         transaction.TransactionMadeOn = DateTime.Now;
                     }
-                    _context.Update(transaction);
-                    await _context.SaveChangesAsync();
-
+                    //Update global user balance
                     BilledUser.UserBalance += Balance;
+
+                    _context.Update(transaction);
                     _context.Update(BilledUser);
                     await _context.SaveChangesAsync();
 
@@ -301,6 +374,7 @@ namespace StableManager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName", transaction.TransactionTypeID);
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", transaction.UserChargedID);
             return View(transaction);
