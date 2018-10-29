@@ -38,7 +38,7 @@ namespace StableManager.Controllers
         /// </summary>
         public async Task<IActionResult> ManageCurrent()
         {
-            var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Where(u => u.TransactionMadeOn.Value.Year == DateTime.Now.Year && u.TransactionMadeOn.Value.Month == DateTime.Now.Month).OrderByDescending(t => t.TransactionMadeOn);
+            var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Include(t => t.Animal).Where(u => u.TransactionMadeOn.Value.Year == DateTime.Now.Year && u.TransactionMadeOn.Value.Month == DateTime.Now.Month).OrderByDescending(t => t.TransactionMadeOn);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -48,7 +48,7 @@ namespace StableManager.Controllers
         /// <returns></returns>
         public async Task<IActionResult> ManageTransactions()
         {
-            var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).OrderByDescending(t => t.TransactionMadeOn);
+            var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Include(t => t.Animal).OrderByDescending(t => t.TransactionMadeOn);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -113,17 +113,18 @@ namespace StableManager.Controllers
             }
 
             //return a list of all transactions
-            var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Where(u => u.UserChargedID.Equals(id)).OrderByDescending(t => t.TransactionMadeOn);
+            var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Include(t=> t.Animal).Where(u => u.UserChargedID.Equals(id)).OrderByDescending(t => t.TransactionMadeOn);
 
             //specific fields to return (for URLs or HTML)
             ViewData["BillToID"] = id;
             ViewData["BillToName"] = CurrentUser.FullName;
+           
             return View(await applicationDbContext.ToListAsync());
 
         }
 
 
-        //TODO!!
+        
         /// <summary>
         /// Generate monthly transactions
         /// </summary>
@@ -142,7 +143,7 @@ namespace StableManager.Controllers
             return View(GenerateTrans);
         }
 
-        //TODO!!
+        //TODO -- OPTIMIZE! - refactor to seperate logic to get boarding fees, services, etc.
         /// <summary>
         /// Generate monthly transactions
         /// </summary>
@@ -152,33 +153,51 @@ namespace StableManager.Controllers
         [HttpPost]
         public async Task<IActionResult> GenerateTransactions(string id, [Bind("BilledToID,BillFrom,BillTo")] GenerateTransactionsViewModel model)
         {
+
+            //if user we are trying bill does not exist return not found 
             if (_context.ApplicationUser.Where(u => u.Id == model.BilledToID) == null)
             {
                 return NotFound();
             }
 
-            var BoardingList = await _context.Boardings.Where(u => u.BillToUserID.Equals(model.BilledToID)).ToListAsync();
+            //get the current user for logs
             var CurrentUser = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+
+            //returns a list of boardings for the selected user
+            var BoardingList = await _context.Boardings.Where(u => u.BillToUserID.Equals(model.BilledToID)).ToListAsync();
+            //get the user we are trying to bill
             var BilledUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == model.BilledToID);
 
+            //for every active boarding the user has
             foreach (Boarding Board in BoardingList)
             {
-                if (Board.EndedBoard > model.BillTo)
+                var test = _context.Transactions.Where(a => a.AnimalID == Board.AnimalID && a.TransactionType.TransactionTypeName.Equals("Boarding Fees") && a.TransactionMadeOn > model.BillFrom).ToList(); 
+                //if we find an active boarding
+                if (test.Count == 0  && (Board.EndedBoard == null || Board.EndedBoard > model.BillTo))
                 {
+                    //generate a new transaction for the boarding
                     var NewTransaction = new Transaction();
+
+                    //logs
                     NewTransaction.ModifiedOn = DateTime.Now;
-                    NewTransaction.ModifierUserID = CurrentUser.Id;
+                    NewTransaction.ModifierUserID = CurrentUser.FullName;
                     NewTransaction.TransactionMadeOn = DateTime.Now;
-                    NewTransaction.TransactionAdditionalDescription = "Boarding fees for " + (await _context.Animals.FirstOrDefaultAsync(a => a.AnimalID == Board.AnimalID)).AnimalName;
-                    NewTransaction.TransactionNumber = "T" + (_context.Transactions.Count() + 1).ToString();
-                   
+
+
+                    //boarding information
+                    NewTransaction.TransactionAdditionalDescription = "Boarding fees from:" + model.BillFrom.ToString("MMMM dd yyyy") + " to " +model.BillTo.ToString("MMMM dd yyyy");
+                    //generate a new transaction number based on the current count of transaction and format it into a string
+                    NewTransaction.TransactionNumber = "TN" + (_context.Transactions.Count() + 1).ToString("D8");
+                    //save animal
+                    NewTransaction.AnimalID = Board.AnimalID;
+
+                    //get transaction data
                     NewTransaction.TransactionTypeID = (await _context.TransactionType.FirstOrDefaultAsync(t => t.TransactionTypeName.Equals("Boarding Fees"))).TransactionTypeID;
                     NewTransaction.TransactionValue = (await _context.BoardingType.FirstOrDefaultAsync(b => b.BoardingTypeID == Board.BoardingTypeID)).BoardingPrice *-1;
                     NewTransaction.UserChargedID = model.BilledToID;
                     _context.Add(NewTransaction);
-                    await _context.SaveChangesAsync();
-
-
+                    
+                    //update balance
                     BilledUser.UserBalance += NewTransaction.TransactionValue;
 
                 }
@@ -216,6 +235,7 @@ namespace StableManager.Controllers
             //specific data to use for UI/URLs
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName", transaction.TransactionTypeID);
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", transaction.UserChargedID);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName");
             return View(transaction);
         }
 
@@ -230,6 +250,7 @@ namespace StableManager.Controllers
             //specific data to use for UI/URLs
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName");
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName");
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName");
             return View();
         }
 
@@ -240,7 +261,7 @@ namespace StableManager.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,ModifiedOn,ModifierUserID")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,AnimalID,ModifiedOn,ModifierUserID")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -255,7 +276,7 @@ namespace StableManager.Controllers
                 //get the transaction type
                 var TransType = await _context.TransactionType.FirstOrDefaultAsync(t => t.TransactionTypeID == transaction.TransactionTypeID);
                 //generate a new transaction number based on the current count of transaction and format it into a string
-                transaction.TransactionNumber = "TN" + (_context.Transactions.Count() + 1).ToString("X8");
+                transaction.TransactionNumber = "TN" + (_context.Transactions.Count() + 1).ToString("D8");
                 //if transaction date is not specified, use todays date
                 if (transaction.TransactionMadeOn == null)
                 {
@@ -308,6 +329,7 @@ namespace StableManager.Controllers
 
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName", transaction.TransactionTypeID);
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", transaction.UserChargedID);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName");
             return View(transaction);
         }
 
@@ -319,7 +341,7 @@ namespace StableManager.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,ModifiedOn,ModifierUserID")] Transaction transaction)
+        public async Task<IActionResult> Edit(string id, [Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,AnimalID,ModifiedOn,ModifierUserID")] Transaction transaction)
         {
             //if id and transaction object's id do not match, return not found
             if (id != transaction.TransactionID)
@@ -377,6 +399,7 @@ namespace StableManager.Controllers
 
             ViewData["TransactionTypeID"] = new SelectList(_context.TransactionType, "TransactionTypeID", "TransactionTypeName", transaction.TransactionTypeID);
             ViewData["UserChargedID"] = new SelectList(_context.ApplicationUser, "Id", "FullName", transaction.UserChargedID);
+            ViewData["AnimalID"] = new SelectList(_context.Animals, "AnimalID", "AnimalName");
             return View(transaction);
         }
 

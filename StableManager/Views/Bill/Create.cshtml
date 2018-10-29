@@ -1,4 +1,4 @@
-﻿@model StableManager.Models.BiilingViewModels.GenerateNewBillViewModel
+﻿@model StableManager.Models.Bill
 
 @{
     ViewData["Title"] = "Create";
@@ -14,17 +14,17 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BilledToID" class="control-label"></label>
-                <select asp-for="BilledToID" class="form-control" asp-items="ViewBag.BilledToID"></select>
+                <label asp-for="UserID" class="control-label"></label>
+                <select asp-for="UserID" class="form-control" asp-items="ViewBag.UserID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="BillFrom" class="control-label"></label>
-                <input asp-for="BillFrom" class="form-control" />
+                <input type="date" asp-for="BillFrom" class="form-control date-selection-correction" />
                 <span asp-validation-for="BillFrom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BillTo" class="control-label"></label>
-                <input asp-for="BillTo" class="form-control" />
+                <input type="date" asp-for="BillTo" class="form-control date-selection-correction" />
                 <span asp-validation-for="BillTo" class="text-danger"></span>
             </div>
   

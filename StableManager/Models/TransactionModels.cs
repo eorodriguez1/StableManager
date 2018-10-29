@@ -37,6 +37,13 @@ namespace StableManager.Models
         [Display(Name = "Charged To")]
         public string UserChargedID { get; set; }
 
+        //transaction is for what animal? 
+        [Display(Name = "For")]
+        public virtual Animal Animal { get; set; }
+        [Display(Name = "Charged For")]
+        public string AnimalID { get; set; }
+
+
         //security things
         [Display(Name = "Modified On")]
         public DateTime ModifiedOn { get; set; }
@@ -72,7 +79,7 @@ namespace StableManager.Models
         Payment,
         [Display(Name = "Receiveable")]
         Receiveable,
-        [Display(Name = "Correction")]
-        Correction
+        [Display(Name = "Adjustment")]
+        Adjustment
     }
 }

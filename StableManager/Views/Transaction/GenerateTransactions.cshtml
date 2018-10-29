@@ -21,14 +21,14 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <div class="form-group">
                     <label asp-for="BillFrom" class="control-label"></label>
-                    <input asp-for="BillFrom" class="form-control" />
+                    <input type="date" asp-for="BillFrom" class="form-control date-selection-correction" />
                     <span asp-validation-for="BillFrom" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                 <div class="form-group">
                     <label asp-for="BillTo" class="control-label"></label>
-                    <input asp-for="BillTo" class="form-control" />
+                    <input type="date" asp-for="BillTo" class="form-control date-selection-correction" />
                     <span asp-validation-for="BillTo" class="text-danger"></span>
                 </div>
             </div>

@@ -26,6 +26,9 @@
                 @Html.DisplayNameFor(model => model.UserCharged)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Animal)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TransactionType)
             </th>
             <th>
@@ -52,6 +55,9 @@
                 <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.UserCharged.FullName)</a>
             </td>
             <td>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.Animal.AnimalName)</a>
+            </td>
+            <td>
                 <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionType.TransactionTypeName)</a>
             </td>
             <td class="@( item.TransactionValue < 0 ? "Negative-Value" : "")">
@@ -59,7 +65,7 @@
                 @{RunningTotal += item.TransactionValue;}
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionMadeOn)</a>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@item.TransactionMadeOn?.ToString("MMMM dd, yyyy")</a>
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionAdditionalDescription)</a>
@@ -70,7 +76,7 @@
 </table>
 
 <div class="pull-right">
-    <strong> Transaction Total: </strong> <span style="@(@RunningTotal < 0 ? "color:red": "")"> @RunningTotal</span>
+    <strong> Transaction Total: </strong> <span style="@(@RunningTotal < 0 ? "color:red": "")">$@RunningTotal.ToString("0.00")</span>
 </div>
 
 <script language="javascript">

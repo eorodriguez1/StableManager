@@ -12,7 +12,6 @@ using StableManager.Models;
 namespace StableManager.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "RequireAdministratorRole")]
     public class BillController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +21,10 @@ namespace StableManager.Controllers
             _context = context;
         }
 
-        // GET: Bill
+        /// <summary>
+        /// send user to the correct billing index
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             var AppUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
@@ -36,7 +38,7 @@ namespace StableManager.Controllers
             }
         }
 
-
+        [Authorize(Policy = "RequireAdministratorRole")]
         public IActionResult GenerateBill()
         {
             ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "FullName");
@@ -44,7 +46,7 @@ namespace StableManager.Controllers
         }
 
 
-
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> ManageBilling()
         {
             var applicationDbContext = _context.Bills.Include(b => b.User);
@@ -70,7 +72,7 @@ namespace StableManager.Controllers
             return View(bill);
         }
 
-        // GET: Bill/Create
+        [Authorize(Policy = "RequireAdministratorRole")]
         public IActionResult Create()
         {
             ViewData["UserID"] = new SelectList(_context.ApplicationUser, "Id", "FullName");
@@ -82,6 +84,7 @@ namespace StableManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Create([Bind("BillID,BillNumber,BillCreatedOn,BillDueOn,BillFrom,BillTo,BillNetTotal,BillTaxTotal,BillCurrentAmountDue,BillPastDueAmountDue,BillTotalAmountDue,UserID,BillCreatorID,ModifiedOn,ModifierUserID")] Bill bill)
         {
             if (ModelState.IsValid)
@@ -95,6 +98,7 @@ namespace StableManager.Controllers
         }
 
         // GET: Bill/Edit/5
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -116,6 +120,7 @@ namespace StableManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Edit(string id, [Bind("BillID,BillNumber,BillCreatedOn,BillDueOn,BillFrom,BillTo,BillNetTotal,BillTaxTotal,BillCurrentAmountDue,BillPastDueAmountDue,BillTotalAmountDue,UserID,BillCreatorID,ModifiedOn,ModifierUserID")] Bill bill)
         {
             if (id != bill.BillID)
@@ -148,6 +153,7 @@ namespace StableManager.Controllers
         }
 
         // GET: Bill/Delete/5
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -169,6 +175,7 @@ namespace StableManager.Controllers
         // POST: Bill/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var bill = await _context.Bills.SingleOrDefaultAsync(m => m.BillID == id);

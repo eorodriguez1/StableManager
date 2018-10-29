@@ -54,7 +54,7 @@ namespace StableManager.Controllers
             }
 
             //enum of possible types of transaction methods
-            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Correction.ToString() };
+            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Adjustment.ToString() };
             ViewData["Types"] = new SelectList(EnumList);
 
             return View(transactionType);
@@ -67,7 +67,7 @@ namespace StableManager.Controllers
         public IActionResult Create()
         {
             //enum of possible types of transaction methods
-            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Correction.ToString()};
+            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Adjustment.ToString()};
             ViewData["Types"] = new SelectList(EnumList);
             return View();
         }
@@ -91,7 +91,7 @@ namespace StableManager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             //enum of possible types of transaction methods
-            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Correction.ToString() };
+            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Adjustment.ToString() };
             ViewData["Types"] = new SelectList(EnumList);
             return View(transactionType);
         }
@@ -117,7 +117,7 @@ namespace StableManager.Controllers
                 return NotFound();
             }
             //enum of possible types of transaction methods
-            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Correction.ToString() };
+            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Adjustment.ToString() };
             ViewData["Types"] = new SelectList(EnumList);
             return View(transactionType);
         }
@@ -163,7 +163,7 @@ namespace StableManager.Controllers
             }
 
             //enum of possible types of transaction methods
-            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Correction.ToString() };
+            var EnumList = new List<String>() { DebitCredit.Receiveable.ToString(), DebitCredit.Payment.ToString(), DebitCredit.Adjustment.ToString() };
             ViewData["Types"] = new SelectList(EnumList);
             return View(transactionType);
         }
