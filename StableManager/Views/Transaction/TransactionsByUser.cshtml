@@ -101,6 +101,9 @@
                 @Html.DisplayNameFor(model => model.UserCharged)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Animal)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TransactionType)
             </th>
             <th>
@@ -119,27 +122,30 @@
         {
             @if (!((item.TransactionMadeOn.Value.Month >= DateTime.Now.Month) & (item.TransactionMadeOn.Value.Year >= DateTime.Now.Year)))
             {
-                <tr>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionNumber)</a>
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.UserCharged.FullName)</a>
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionType.TransactionTypeName)</a>
-                    </td>
-                    <td class="@( item.TransactionValue < 0 ? "Negative-Value" : "")">
-                        <a asp-action="Details" asp-route-id="@item.TransactionID">$@item.TransactionValue.ToString("0.00")</a>
-                        @{RunningTotal += item.TransactionValue;}
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.TransactionID">@item.TransactionMadeOn?.ToString("MMMM dd, yyyy")</a>
-                    </td>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionAdditionalDescription)</a>
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionNumber)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.UserCharged.FullName)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.Animal.AnimalName)</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionType.TransactionTypeName)</a>
+            </td>
+            <td class="@( item.TransactionValue < 0 ? "Negative-Value" : "")">
+                <a asp-action="Details" asp-route-id="@item.TransactionID">$@item.TransactionValue.ToString("0.00")</a>
+                @{RunningTotal += item.TransactionValue;}
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@item.TransactionMadeOn?.ToString("MMMM dd, yyyy")</a>
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.TransactionID">@Html.DisplayFor(modelItem => item.TransactionAdditionalDescription)</a>
+            </td>
+        </tr>
             }
         }
     </tbody>

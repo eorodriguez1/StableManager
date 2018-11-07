@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<StableManager.Models.Bill>
 
 @{
-    ViewData["Title"] = "Billing";
+    ViewData["Title"] = "Billing - Current";
     Layout = "~/Views/Shared/_MenuLayout.cshtml";
 }
 
@@ -70,7 +70,7 @@
 
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BillID">Edit</a> |
-                <a asp-action="ViewBill" asp-route-id="@item.BillID">View</a> |
+                <a asp-action="ViewBill" asp-route-id="@item.BillID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.BillID">Delete</a>
             </td>
         </tr>

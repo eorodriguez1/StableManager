@@ -12,9 +12,10 @@ using System;
 namespace StableManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181106065139_update to billing model")]
+    partial class updatetobillingmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -531,6 +532,8 @@ namespace StableManager.Data.Migrations
 
                     b.Property<string>("AnimalID");
 
+                    b.Property<string>("BillID");
+
                     b.Property<DateTime>("ModifiedOn");
 
                     b.Property<string>("ModifierUserID");
@@ -550,6 +553,8 @@ namespace StableManager.Data.Migrations
                     b.HasKey("TransactionID");
 
                     b.HasIndex("AnimalID");
+
+                    b.HasIndex("BillID");
 
                     b.HasIndex("TransactionTypeID");
 
@@ -693,6 +698,10 @@ namespace StableManager.Data.Migrations
                     b.HasOne("StableManager.Models.Animal", "Animal")
                         .WithMany()
                         .HasForeignKey("AnimalID");
+
+                    b.HasOne("StableManager.Models.Bill")
+                        .WithMany("Transactions")
+                        .HasForeignKey("BillID");
 
                     b.HasOne("StableManager.Models.TransactionType", "TransactionType")
                         .WithMany()

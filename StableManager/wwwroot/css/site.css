@@ -113,3 +113,50 @@
 .date-selection-correction {
     line-height: normal !important;
 }
+
+.Invoice {
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
+    background-color: white;
+    padding-bottom: 100px;
+}
+
+.Invoice-invoiceTotals{
+    text-align:right;
+    float:right;
+    
+}
+
+.Invoice-invoiceHeader{
+    margin-top: -100px;
+    text-align:left;
+    float:right;
+}
+
+.Invoice-stableHeader{
+    text-align: center;
+}
+
+.Invoice-clientHeader{
+    padding-top:40px;
+    text-align:left;
+}
+
+.Invoice-transactionBreakdown{
+
+}
+
+.Invoice-table{
+    
+}
+
+.Invoice-tableRow td {
+    padding-bottom:5px;
+}
+
+.Invoice-details {
+    border:solid;
+    border-color:lightgray;
+    border-width: 1px;
+}

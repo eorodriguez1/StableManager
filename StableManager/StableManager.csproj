@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\BillingViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\media\Backgrounds\1.jpg" />
     <None Include="wwwroot\media\Banners\Banner1.jpg" />
     <None Include="wwwroot\media\Gallery\General\Opec1.jpg" />
@@ -37,6 +33,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Bill\ViewBill.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Bill\ManageHistory.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Bill\ManageCurrent.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\ServicesBoarding.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

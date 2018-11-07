@@ -38,8 +38,6 @@ namespace StableManager.Models
         public double BillTotalAmountDue { get; set; }
 
 
-        //List of all transactions within billing period
-        public ICollection<Transaction> Transactions { get; set; }
 
         //owner of the bill
         [Display(Name = "Bill To")]

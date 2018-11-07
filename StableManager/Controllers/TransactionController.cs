@@ -136,14 +136,14 @@ namespace StableManager.Controllers
             var GenerateTrans = new GenerateTransactionsViewModel();
             GenerateTrans.BilledToID = id;
             GenerateTrans.BillFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            GenerateTrans.BillTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1);
-
-            ViewData["blah"] = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1);
+            GenerateTrans.BillTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1);
+            
             ViewData["BilledToID"] = new SelectList(_context.ApplicationUser, "Id", "FullName");
             return View(GenerateTrans);
         }
 
         //TODO -- OPTIMIZE! - refactor to seperate logic to get boarding fees, services, etc.
+        //                  - Possibility of adding transaction period (From & To fields) to better protect againts duplicate items
         /// <summary>
         /// Generate monthly transactions
         /// </summary>
@@ -171,6 +171,7 @@ namespace StableManager.Controllers
             //for every active boarding the user has
             foreach (Boarding Board in BoardingList)
             {
+                //TODO Change so that transaction only occurs for billing period
                 var test = _context.Transactions.Where(a => a.AnimalID == Board.AnimalID && a.TransactionType.TransactionTypeName.Equals("Boarding Fees") && a.TransactionMadeOn > model.BillFrom).ToList(); 
                 //if we find an active boarding
                 if (test.Count == 0  && (Board.EndedBoard == null || Board.EndedBoard > model.BillTo))
