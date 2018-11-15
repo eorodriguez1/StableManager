@@ -35,7 +35,7 @@ namespace StableManager.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MyInvoices");
             }
         }
 
@@ -48,6 +48,17 @@ namespace StableManager.Controllers
         public async Task<IActionResult> ManageBilling()
         {
             var applicationDbContext = _context.Bills.Include(b => b.User);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        /// <summary>
+        /// A list of all bills available in the system
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> MyInvoices()
+        {
+            var CurrentUser = await _context.ApplicationUser.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            var applicationDbContext = _context.Bills.Include(b => b.User).Where( u => u.UserID == CurrentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -183,9 +194,11 @@ namespace StableManager.Controllers
                 PastDueTrans.TransactionAdditionalDescription = "Past Due Amount From Previous Invoice";
 
                 ViewBill.Transactions.Add(PastDueTrans);
+                ViewBill.Bill.BillNetTotal += bill.BillPastDueAmountDue;
             }
 
             
+
             ViewBill.Stable = _context.StableDetails.FirstOrDefault();
 
             return View(ViewBill);

@@ -12,8 +12,7 @@ using StableManager.Models.TransactionViewModels;
 
 namespace StableManager.Controllers
 {
-    [Authorize]
-    [Authorize(Policy = "RequireAdministratorRole")]
+    [Authorize()]
     public class TransactionController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -27,15 +26,26 @@ namespace StableManager.Controllers
         /// Redirect to correct menu
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        [Authorize()]
+        public async Task<IActionResult> Index()
         {
             //Send user to "Manage Transactions by User" section
-            return RedirectToAction(nameof(ManageByUser));
+            
+            var AppUser = await _context.Users.FirstAsync(u => u.UserName == User.Identity.Name);
+            if (AppUser.IsAdmin)
+            {
+                return RedirectToAction(nameof(ManageByUser));
+            }
+            else
+            {
+                return RedirectToAction(nameof(MyTransactions));
+            }
         }
 
         /// <summary>
         /// Section that allows a user to manage current transactions (For the current month)
         /// </summary>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> ManageCurrent()
         {
             var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Include(t => t.Animal).Where(u => u.TransactionMadeOn.Value.Year == DateTime.Now.Year && u.TransactionMadeOn.Value.Month == DateTime.Now.Month).OrderByDescending(t => t.TransactionMadeOn);
@@ -46,6 +56,7 @@ namespace StableManager.Controllers
         ///Section that allows users to manage all transactions
         /// </summary>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> ManageTransactions()
         {
             var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Include(t => t.Animal).OrderByDescending(t => t.TransactionMadeOn);
@@ -53,9 +64,21 @@ namespace StableManager.Controllers
         }
 
         /// <summary>
+        ///Section that list all of a current users transactions
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> MyTransactions()
+        {
+            var CurrentUser = await _context.ApplicationUser.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            var applicationDbContext = _context.Transactions.Include(t => t.TransactionType).Include(t => t.UserCharged).Include(t => t.Animal).Where(t => t.UserChargedID == CurrentUser.Id).OrderByDescending(t => t.TransactionMadeOn);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        /// <summary>
         /// Section that provides the user with an overview/summary of all transactions per user (1 line per user)
         /// </summary>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> ManageByUser()
         {
 
@@ -95,6 +118,7 @@ namespace StableManager.Controllers
         /// </summary>
         /// <param name="id">id for user to look up</param>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> TransactionsByUser(string id)
         {
             //If user is not specified, return not found
@@ -124,12 +148,13 @@ namespace StableManager.Controllers
         }
 
 
-        
+
         /// <summary>
         /// Generate monthly transactions
         /// </summary>
         /// <param name="id">id used to specify the owner of the transactions (USER ID)</param>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public IActionResult GenerateTransactions(string id)
         {
 
@@ -151,6 +176,7 @@ namespace StableManager.Controllers
         /// <param name="model"> transaction list view model to save</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> GenerateTransactions(string id, [Bind("BilledToID,BillFrom,BillTo")] GenerateTransactionsViewModel model)
         {
 
@@ -217,6 +243,7 @@ namespace StableManager.Controllers
         /// </summary>
         /// <param name="id">ID for the transaction to loopup</param>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Details(string id)
         {
             //if id is not specfied, return not found
@@ -246,6 +273,7 @@ namespace StableManager.Controllers
         /// Create a new transaction
         /// </summary>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public IActionResult Create()
         {
             //specific data to use for UI/URLs
@@ -262,6 +290,7 @@ namespace StableManager.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Create([Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,AnimalID,ModifiedOn,ModifierUserID")] Transaction transaction)
         {
             if (ModelState.IsValid)
@@ -312,6 +341,7 @@ namespace StableManager.Controllers
         /// </summary>
         /// <param name="id">id of transaction to edit</param>
         /// <returns></returns>
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Edit(string id)
         {
             //if id is not specified, return not found
@@ -342,6 +372,7 @@ namespace StableManager.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Edit(string id, [Bind("TransactionID,TransactionNumber,TransactionValue,TransactionMadeOn,TransactionAdditionalDescription,TransactionTypeID,UserChargedID,AnimalID,ModifiedOn,ModifierUserID")] Transaction transaction)
         {
             //if id and transaction object's id do not match, return not found
@@ -405,6 +436,7 @@ namespace StableManager.Controllers
         }
 
         // GET: Transaction/Delete/5
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -427,6 +459,7 @@ namespace StableManager.Controllers
         // POST: Transaction/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "RequireAdministratorRole")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var transaction = await _context.Transactions.SingleOrDefaultAsync(m => m.TransactionID == id);

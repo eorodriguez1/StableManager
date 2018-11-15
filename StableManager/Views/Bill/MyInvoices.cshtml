@@ -1,0 +1,77 @@
+﻿@model IEnumerable<StableManager.Models.Bill>
+
+@{
+    ViewData["Title"] = "Billing";
+    Layout = "~/Views/Shared/_MenuLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.BillNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillCreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillDueOn)
+            </th>
+            <th>
+                Current Due
+            </th>
+            <th>
+                Past Due
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillTotalAmountDue)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BillNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+            <td>
+                @item.BillCreatedOn.ToString("MMMM dd, yyyy")
+            </td>
+            <td>
+                @item.BillDueOn.ToString("MMMM dd, yyyy")
+            </td>
+
+            <td>
+                $ @item.BillCurrentAmountDue.ToString("0.00")
+            </td>
+            <td>
+                $ @item.BillPastDueAmountDue.ToString("0.00")
+            </td>
+            <td>
+                $ @item.BillTotalAmountDue.ToString("0.00")
+            </td>
+
+            <td>
+                <a asp-action="ViewBill" asp-route-id="@item.BillID">View</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script language="javascript">
+    var menuItem = document.getElementById("ManageBills").className = "active";
+</script>

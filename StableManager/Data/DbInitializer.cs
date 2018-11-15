@@ -56,6 +56,12 @@ namespace StableManager.Data
                 await userManager.AddToRoleAsync(AdminUser, "Administrator");
             }
 
+            // *TODO*
+            //Add objects to initialize transactions so that billing works.
+            //Ensure that "boarding fees" is a set object that cannot be deleted with a set ID
+            //Ensure that "Services" is a set object that cannot be deleted with a set ID
+
+
             //Save all changes
             context.SaveChanges();
 
